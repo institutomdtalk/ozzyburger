@@ -141,8 +141,8 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   animation:pulseGreen 2s ease-out infinite;
 }
 .status-dot.fechado{
-  background:#FF1A1A;
-  box-shadow:0 0 8px rgba(255,26,26,0.9);
+  background:#FFD700;
+  box-shadow:0 0 8px rgba(255,215,0,0.9);
   animation:pulseRed 2s ease-out infinite;
 }
 .status-dot::after{
@@ -152,15 +152,15 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   animation:pulseRing 2s ease-out infinite;
 }
 .status-dot.aberto::after{border:2px solid rgba(74,222,128,0.5)}
-.status-dot.fechado::after{border:2px solid rgba(255,26,26,0.6)}
+.status-dot.fechado::after{border:2px solid rgba(255,215,0,0.6)}
 
 @keyframes pulseGreen{
   0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.5)}
   60%    {box-shadow:0 0 0 8px rgba(74,222,128,0)}
 }
 @keyframes pulseRed{
-  0%,100%{box-shadow:0 0 0 0 rgba(255,26,26,0.7)}
-  60%    {box-shadow:0 0 0 8px rgba(255,26,26,0)}
+  0%,100%{box-shadow:0 0 0 0 rgba(255,215,0,0.7)}
+  60%    {box-shadow:0 0 0 8px rgba(255,215,0,0)}
 }
 @keyframes pulseRing{
   0%  {transform:scale(0.8);opacity:1}
@@ -407,6 +407,200 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .footer-tagline{font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(255,255,255,0.22);margin-bottom:16px}
 .footer-copy{font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
 
+/* ═══ LANCHE CARD ═══ */
+.lanche-grid{
+  grid-column:1/-1;
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
+  gap:20px;
+  margin-top:4px;
+}
+.lanche-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  transition:box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+  position:relative;
+}
+.lanche-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);z-index:1;
+}
+.lanche-card:hover::before{transform:scaleX(1)}
+.lanche-card:hover{
+  box-shadow:var(--shadow-md);
+  transform:translateY(-4px);
+  border-color:var(--border-gold);
+}
+
+/* Foto */
+.lanche-foto-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  cursor:zoom-in;
+  background:#111;
+}
+.lanche-foto{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), filter 0.4s ease;
+  filter:brightness(0.96);
+}
+.lanche-card:hover .lanche-foto{transform:scale(1.04);filter:brightness(1.04)}
+.lanche-foto-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 50%);
+  display:flex;align-items:flex-end;justify-content:flex-end;
+  padding:12px;
+  opacity:0;transition:opacity 0.3s ease;
+}
+.lanche-card:hover .lanche-foto-overlay{opacity:1}
+.lanche-zoom-hint{
+  background:rgba(0,0,0,0.6);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:50%;
+  width:34px;height:34px;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(4px);
+}
+.lanche-zoom-hint svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* Corpo do card */
+.lanche-body{padding:18px 18px 0}
+.lanche-nome{
+  font-family:var(--serif);font-size:1.35rem;font-weight:600;
+  color:var(--navy);margin-bottom:10px;line-height:1.2;
+}
+.lanche-ingredientes{
+  list-style:none;margin-bottom:0;
+}
+.lanche-ingredientes li{
+  font-size:12.5px;color:var(--text-muted);
+  padding:3px 0;
+  display:flex;align-items:center;gap:7px;
+  border-bottom:1px solid rgba(11,29,58,0.04);
+}
+.lanche-ingredientes li:last-child{border-bottom:none}
+.lanche-ingredientes li::before{
+  content:'';
+  width:4px;height:4px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;opacity:0.7;
+}
+
+/* Acordeões */
+.lanche-acordeao{
+  border-top:1px solid var(--border);
+  margin-top:14px;
+}
+.lanche-acordeao-btn{
+  width:100%;background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 18px;
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--navy);
+  transition:background 0.2s ease;
+}
+.lanche-acordeao-btn:hover{background:var(--off-white)}
+.lanche-acordeao-btn .ac-icon{
+  width:18px;height:18px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:transform 0.3s ease;
+}
+.lanche-acordeao-btn.add .ac-icon{background:rgba(45,106,79,0.12)}
+.lanche-acordeao-btn.add .ac-icon svg{stroke:#2D6A4F}
+.lanche-acordeao-btn.rem .ac-icon{background:rgba(163,45,45,0.10)}
+.lanche-acordeao-btn.rem .ac-icon svg{stroke:#A32D2D}
+.lanche-acordeao-btn.open .ac-icon{transform:rotate(180deg)}
+.ac-icon svg{width:12px;height:12px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+.lanche-acordeao-body{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1);
+  background:var(--off-white);
+}
+.lanche-acordeao-body.open{max-height:300px}
+.lanche-ac-lista{
+  list-style:none;padding:10px 18px 14px;
+}
+.lanche-ac-lista li{
+  font-size:12.5px;color:var(--text-muted);
+  padding:4px 0;display:flex;align-items:center;gap:8px;
+}
+.lanche-ac-lista li::before{
+  content:'+';font-size:11px;font-weight:700;
+  color:#2D6A4F;flex-shrink:0;width:14px;text-align:center;
+}
+.lanche-acordeao-btn.rem + .lanche-acordeao-body .lanche-ac-lista li::before{
+  content:'−';color:#A32D2D;
+}
+
+/* Observações */
+.lanche-obs-wrap{
+  padding:12px 18px 18px;
+  border-top:1px solid var(--border);
+  margin-top:2px;
+}
+.lanche-obs-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--warm-gray);margin-bottom:6px;display:block;
+}
+.lanche-obs{
+  width:100%;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--cream);font-family:var(--sans);font-size:12.5px;
+  color:var(--text-body);padding:9px 12px;resize:none;outline:none;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height:60px;line-height:1.5;
+}
+.lanche-obs:focus{
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+}
+.lanche-obs::placeholder{color:rgba(107,101,96,0.4);font-style:italic}
+
+/* ═══ LIGHTBOX DA FOTO ═══ */
+.foto-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  z-index:500;align-items:center;justify-content:center;
+  padding:24px;
+}
+.foto-overlay.active{display:flex}
+.foto-lightbox-img{
+  max-width:92vw;max-height:88vh;
+  border-radius:8px;
+  box-shadow:0 32px 80px rgba(0,0,0,0.8);
+  object-fit:contain;
+  animation:fotoReveal 0.35s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes fotoReveal{
+  from{opacity:0;transform:scale(0.88)}
+  to{opacity:1;transform:scale(1)}
+}
+.foto-close{
+  position:fixed;top:20px;right:20px;
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:all 0.25s ease;z-index:10;
+}
+.foto-close:hover{background:rgba(196,164,90,0.3);border-color:var(--gold)}
+.foto-close svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round}
+.foto-nome{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
+  font-family:var(--serif);font-size:1.1rem;font-weight:400;
+  color:rgba(255,255,255,0.7);letter-spacing:1px;
+  text-align:center;pointer-events:none;
+}
+
 /* ═══ TOAST ═══ */
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:var(--white);padding:13px 28px;border-radius:var(--radius);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.5px;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.22,1,0.36,1);z-index:200;white-space:nowrap;box-shadow:var(--shadow-lg);border-left:2px solid var(--gold)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -420,6 +614,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   .contact-strip{grid-template-columns:1fr}
   .contact-item{border-right:none;border-bottom:1px solid var(--border)}
   .contact-item:last-child{border-bottom:none}
+  .lanche-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -464,17 +659,78 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     <div class="section-header-line"></div>
   </div>
 
-  <div class="card card--link reveal" style="cursor:pointer">
-    <div class="card-pad">
-      <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-lanche">
-        <svg viewBox="0 0 24 24"><path d="M3 11h18"/><path d="M5 11V7a7 7 0 0114 0v4"/><rect x="3" y="11" width="18" height="3" rx="1"/><path d="M5 14v2a7 7 0 0014 0v-2"/></svg>
-      </div></div>
-      <div class="link-text">
-        <h3 class="card-title">Lanches</h3>
-        <p class="card-subtitle">Hambúrgueres, smash burgers, combos...</p>
-        <span class="card-arrow">Ver cardápio <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+  <div class="lanche-grid reveal">
+
+    <!-- ── X-Salada ── -->
+    <div class="lanche-card">
+      <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1V-aWOaZRIFWSoJwKm4Wxe_rAfGiO4EJ7=s1600','X-Salada')">
+        <img class="lanche-foto"
+          src="https://lh3.googleusercontent.com/d/1V-aWOaZRIFWSoJwKm4Wxe_rAfGiO4EJ7=s600"
+          alt="X-Salada"
+          loading="lazy">
+        <div class="lanche-foto-overlay">
+          <div class="lanche-zoom-hint">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="lanche-body">
+        <h3 class="lanche-nome">X-Salada</h3>
+        <ul class="lanche-ingredientes">
+          <li>Pão brioche artesanal</li>
+          <li>Hambúrguer bovino artesanal</li>
+          <li>Queijo cheddar derretido</li>
+          <li>Alface americana crocante</li>
+          <li>Tomate fresco em fatias</li>
+          <li>Cebola branca</li>
+          <li>Picles artesanais</li>
+          <li>Maionese especial da casa</li>
+        </ul>
+      </div>
+
+      <!-- Acrescentar -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
+          Acrescentar opções
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li>Bacon crocante</li>
+            <li>Ovo frito</li>
+            <li>Cheddar extra</li>
+            <li>Cebola caramelizada</li>
+            <li>Jalapeño</li>
+            <li>Cogumelos salteados</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Retirar -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
+          Retirar ingredientes
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li>Alface</li>
+            <li>Tomate</li>
+            <li>Cebola</li>
+            <li>Picles</li>
+            <li>Maionese</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Observações -->
+      <div class="lanche-obs-wrap">
+        <label class="lanche-obs-label">Observações</label>
+        <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
       </div>
     </div>
+
   </div>
 
   <!-- ══ PORÇÕES ══ -->
@@ -564,6 +820,15 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   <p class="footer-copy">&copy; 2026 Ozzy Burger &mdash; Todos os direitos reservados.</p>
 </footer>
 
+<!-- FOTO LIGHTBOX -->
+<div class="foto-overlay" id="foto-overlay" onclick="fecharFoto(event)">
+  <button class="foto-close" onclick="fecharFoto()">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img class="foto-lightbox-img" id="foto-lightbox-img" src="" alt="">
+  <p class="foto-nome" id="foto-nome"></p>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -588,47 +853,46 @@ function initBusca() {
   var clearBtn = document.getElementById('search-clear');
   var emptyEl  = document.querySelector('.search-empty');
   if (!input) return;
-
   function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
-
   input.addEventListener('input', function(){
     var q = normalize(this.value.trim());
     clearBtn.classList.toggle('visible', q.length > 0);
-    var cards    = document.querySelectorAll('.card--link');
+    var cards    = document.querySelectorAll('.lanche-card');
     var sections = document.querySelectorAll('.section-header');
     var count    = 0;
-
     if (!q) {
       cards.forEach(function(c){ c.style.display = ''; });
       sections.forEach(function(s){ s.style.display = ''; });
+      document.querySelectorAll('.lanche-grid').forEach(function(g){ g.style.display = ''; });
       if (emptyEl) emptyEl.style.display = 'none';
       return;
     }
-
     cards.forEach(function(c){ c.style.display = 'none'; });
     sections.forEach(function(s){ s.style.display = 'none'; });
-
+    document.querySelectorAll('.lanche-grid').forEach(function(g){ g.style.display = 'none'; });
     cards.forEach(function(c){
-      var titulo = c.querySelector('.card-title');
-      var sub    = c.querySelector('.card-subtitle');
-      var texto  = (titulo ? titulo.textContent : '') + ' ' + (sub ? sub.textContent : '');
-      if (normalize(texto).indexOf(q) !== -1) { c.style.display = ''; count++; }
+      var nome = c.querySelector('.lanche-nome');
+      if (nome && normalize(nome.textContent).indexOf(q) !== -1) {
+        c.style.display = '';
+        var grid = c.closest('.lanche-grid');
+        if (grid) grid.style.display = '';
+        count++;
+      }
     });
-
+    // Mostra seções com conteúdo visível
     sections.forEach(function(section){
       var next = section.nextElementSibling;
       while (next && !next.classList.contains('section-header')) {
-        if (next.classList.contains('card--link') && next.style.display !== 'none') {
+        if ((next.classList.contains('lanche-grid') && next.style.display !== 'none') ||
+            (next.classList.contains('card--link')  && next.style.display !== 'none')) {
           section.style.display = '';
           break;
         }
         next = next.nextElementSibling;
       }
     });
-
     if (emptyEl) emptyEl.style.display = count === 0 ? 'block' : 'none';
   });
-
   clearBtn.addEventListener('click', function(){
     input.value = '';
     input.dispatchEvent(new Event('input'));
@@ -636,26 +900,49 @@ function initBusca() {
   });
 }
 
+// ── ACORDEÃO ──
+function toggleAc(btn) {
+  var body = btn.nextElementSibling;
+  var open = body.classList.contains('open');
+  // Fecha todos dentro do mesmo card
+  var card = btn.closest('.lanche-card');
+  card.querySelectorAll('.lanche-acordeao-body').forEach(function(b){ b.classList.remove('open'); });
+  card.querySelectorAll('.lanche-acordeao-btn').forEach(function(b){ b.classList.remove('open'); });
+  if (!open) {
+    body.classList.add('open');
+    btn.classList.add('open');
+  }
+}
 
-window.addEventListener('load', function(){
-  setTimeout(initReveal, 80);
-  initBusca();
-  initStatus();
+// ── FOTO LIGHTBOX ──
+function abrirFoto(src, nome) {
+  var img = document.getElementById('foto-lightbox-img');
+  var nomeEl = document.getElementById('foto-nome');
+  img.src = src;
+  if (nomeEl) nomeEl.textContent = nome || '';
+  document.getElementById('foto-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function fecharFoto(e) {
+  if (e && e.target !== document.getElementById('foto-overlay') && !e.target.closest('.foto-close')) return;
+  document.getElementById('foto-overlay').classList.remove('active');
+  document.getElementById('foto-lightbox-img').src = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape') fecharFoto();
 });
 
-// ── STATUS AUTOMÁTICO POR HORÁRIO ──
+// ── STATUS ──
 function initStatus() {
   function atualizar() {
-    var agora  = new Date();
-    var hora   = agora.getHours();
-    var min    = agora.getMinutes();
-    // Aberto: 18h00 até 00h00 (meia-noite)
+    var hora   = new Date().getHours();
     var aberto = (hora >= 18 && hora < 24);
-
     var dot  = document.getElementById('status-dot');
     var txt  = document.getElementById('status-text');
     if (!dot || !txt) return;
-
     if (aberto) {
       dot.className = 'status-dot aberto';
       txt.className = 'status-text aberto';
@@ -667,9 +954,14 @@ function initStatus() {
     }
   }
   atualizar();
-  // Recalcula a cada minuto
   setInterval(atualizar, 60000);
 }
+
+window.addEventListener('load', function(){
+  setTimeout(initReveal, 80);
+  initBusca();
+  initStatus();
+});
 </script>
 </body>
 </html>
