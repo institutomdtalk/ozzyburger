@@ -549,11 +549,32 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 }
 .lanche-ac-item.rem-item .lanche-ac-preco{color:var(--text-muted);font-weight:400;font-style:italic;font-size:10px}
 
+/* Quantidade */
+.lanche-qty-wrap{
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
+  flex-shrink:0;
+}
+.qty-btn{
+  width:32px;height:32px;border:none;background:var(--off-white);
+  font-size:16px;font-weight:700;color:var(--navy);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s ease;line-height:1;flex-shrink:0;
+}
+.qty-btn:hover{background:var(--gold-faint);color:var(--gold)}
+.qty-display{
+  width:34px;text-align:center;
+  font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--navy);
+  border-left:1px solid var(--border);border-right:1px solid var(--border);
+  line-height:32px;
+}
+
 /* Botão adicionar ao pedido */
 .lanche-add-pedido-wrap{
   padding:14px 18px 18px;
   border-top:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  flex-wrap:wrap;
 }
 .lanche-preco-base{
   display:flex;flex-direction:column;
@@ -940,11 +961,126 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
         <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
       </div>
 
-      <!-- Preço + Adicionar -->
+      <!-- Preço + Quantidade + Adicionar -->
       <div class="lanche-add-pedido-wrap">
         <div class="lanche-preco-base">
           <span class="lanche-preco-label">Total</span>
           <div class="lanche-preco-valor"><span>R$ </span><span class="preco-display">32,90</span></div>
+        </div>
+        <div class="lanche-qty-wrap">
+          <button class="qty-btn" onclick="alterarQty(this,-1)">−</button>
+          <span class="qty-display">1</span>
+          <button class="qty-btn" onclick="alterarQty(this,1)">+</button>
+        </div>
+        <button class="btn-add-pedido" onclick="adicionarAoPedido(this)">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Adicionar
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Smash Burger ── -->
+    <div class="lanche-card" data-id="smash" data-nome="Smash Burger" data-preco="38.90">
+      <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1aj2mSbhA6BBZNBEAdsK0jPcC28BcTGFd=s1600','Smash Burger')">
+        <img class="lanche-foto"
+          src="https://lh3.googleusercontent.com/d/1aj2mSbhA6BBZNBEAdsK0jPcC28BcTGFd=s600"
+          alt="Smash Burger" loading="lazy">
+        <div class="lanche-foto-overlay">
+          <div class="lanche-zoom-hint">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="lanche-body">
+        <h3 class="lanche-nome">Smash Burger</h3>
+        <ul class="lanche-ingredientes">
+          <li>Pão brioche selado na manteiga</li>
+          <li>Dois smash burgers ultra prensados</li>
+          <li>Queijo americano derretido</li>
+          <li>Cebola picada</li>
+          <li>Picles crocantes</li>
+          <li>Molho smash especial</li>
+          <li>Crosta caramelizada na carne</li>
+        </ul>
+      </div>
+
+      <!-- Adicionar ingredientes -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
+          Adicionar ingredientes
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
+              <span class="lanche-ac-preco">+ R$ 4,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
+              <span class="lanche-ac-preco">+ R$ 2,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Terceiro smash" data-preco="9.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Terceiro smash</span></label>
+              <span class="lanche-ac-preco">+ R$ 9,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
+              <span class="lanche-ac-preco">+ R$ 5,00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Retirar ingredientes -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
+          Retirar ingredientes
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola picada"><span class="lanche-ac-nome">Cebola picada</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Picles"><span class="lanche-ac-nome">Picles</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Molho smash"><span class="lanche-ac-nome">Molho smash</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Observações -->
+      <div class="lanche-obs-wrap">
+        <label class="lanche-obs-label">Observações</label>
+        <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
+      </div>
+
+      <!-- Preço + Quantidade + Adicionar -->
+      <div class="lanche-add-pedido-wrap">
+        <div class="lanche-preco-base">
+          <span class="lanche-preco-label">Total</span>
+          <div class="lanche-preco-valor"><span>R$ </span><span class="preco-display">38,90</span></div>
+        </div>
+        <div class="lanche-qty-wrap">
+          <button class="qty-btn" onclick="alterarQty(this,-1)">−</button>
+          <span class="qty-display">1</span>
+          <button class="qty-btn" onclick="alterarQty(this,1)">+</button>
         </div>
         <button class="btn-add-pedido" onclick="adicionarAoPedido(this)">
           <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
@@ -954,8 +1090,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
 
   </div>
-
-  <!-- ══ PORÇÕES ══ -->
   <div class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Porções</p></div>
     <div class="section-header-line"></div>
@@ -1098,15 +1232,29 @@ var _carrinhoAberto = false;
 
 function fmt(v){ return 'R$ ' + v.toFixed(2).replace('.',','); }
 
+function getQty(card) {
+  var d = card.querySelector('.qty-display');
+  return d ? parseInt(d.textContent) || 1 : 1;
+}
+
 function atualizarPreco(cb) {
-  var card = cb.closest('.lanche-card');
-  var base = parseFloat(card.dataset.preco);
+  var card  = cb.closest ? cb.closest('.lanche-card') : cb;
+  var base  = parseFloat(card.dataset.preco);
+  var qty   = getQty(card);
   var extras = 0;
   card.querySelectorAll('.add-check:checked').forEach(function(c){
     extras += parseFloat(c.dataset.preco);
   });
   var display = card.querySelector('.preco-display');
-  if (display) display.textContent = (base + extras).toFixed(2).replace('.',',');
+  if (display) display.textContent = ((base + extras) * qty).toFixed(2).replace('.',',');
+}
+
+function alterarQty(btn, delta) {
+  var card = btn.closest('.lanche-card');
+  var d    = card.querySelector('.qty-display');
+  var val  = Math.max(1, (parseInt(d.textContent) || 1) + delta);
+  d.textContent = val;
+  atualizarPreco(card);
 }
 
 function adicionarAoPedido(btn) {
@@ -1114,6 +1262,7 @@ function adicionarAoPedido(btn) {
   var id      = card.dataset.id + '_' + Date.now();
   var nome    = card.dataset.nome;
   var base    = parseFloat(card.dataset.preco);
+  var qty     = getQty(card);
   var adicionados = [];
   var extras  = 0;
   card.querySelectorAll('.add-check:checked').forEach(function(c){
@@ -1124,10 +1273,10 @@ function adicionarAoPedido(btn) {
   card.querySelectorAll('.rem-check:checked').forEach(function(c){
     retirados.push(c.dataset.nome);
   });
-  var obs = card.querySelector('.lanche-obs') ? card.querySelector('.lanche-obs').value.trim() : '';
-  var total = base + extras;
+  var obs   = card.querySelector('.lanche-obs') ? card.querySelector('.lanche-obs').value.trim() : '';
+  var total = (base + extras) * qty;
 
-  _carrinho.push({id:id, nome:nome, preco:total, base:base, adicionados:adicionados, retirados:retirados, obs:obs});
+  _carrinho.push({id:id, nome:nome, preco:total, base:base, qty:qty, adicionados:adicionados, retirados:retirados, obs:obs});
 
   // Feedback visual
   btn.classList.add('adicionado');
@@ -1140,7 +1289,9 @@ function adicionarAoPedido(btn) {
   // Reset card
   card.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.checked = false; });
   if (card.querySelector('.lanche-obs')) card.querySelector('.lanche-obs').value = '';
-  atualizarPreco(card.querySelector('.add-check') || {closest:function(){return card;}});
+  var qtyD = card.querySelector('.qty-display');
+  if (qtyD) qtyD.textContent = '1';
+  atualizarPreco(card);
 
   renderCarrinho();
   mostrarCarrinho();
@@ -1169,12 +1320,13 @@ function renderCarrinho() {
 
   lista.innerHTML = _carrinho.map(function(item){
     var detalhe = [];
-    if (item.adicionados.length) detalhe.push('+ ' + item.adicionados.map(function(a){return a.nome;}).join(', '));
+    if (item.adicionados.length) detalhe.push('+ ' + item.adicionados.map(function(a){return a.nome+' (+R$'+a.preco.toFixed(2).replace('.',',')+')';}).join(', '));
     if (item.retirados.length)   detalhe.push('− ' + item.retirados.join(', '));
     if (item.obs)                detalhe.push('Obs: ' + item.obs);
+    var qtyLabel = item.qty > 1 ? ' <span style="font-size:11px;color:rgba(255,255,255,0.45);font-family:var(--sans);">×' + item.qty + '</span>' : '';
     return '<div class="carrinho-item">' +
       '<div style="flex:1">' +
-        '<div class="carrinho-item-nome">' + item.nome + '</div>' +
+        '<div class="carrinho-item-nome">' + item.nome + qtyLabel + '</div>' +
         (detalhe.length ? '<div class="carrinho-item-detalhe">' + detalhe.join('<br>') + '</div>' : '') +
       '</div>' +
       '<div style="display:flex;align-items:center;gap:10px">' +
@@ -1219,7 +1371,7 @@ function enviarWhatsApp() {
   var soma = _carrinho.reduce(function(acc,i){ return acc + i.preco; }, 0);
   var linhas = ['🍔 *PEDIDO — OZZY BURGER*', ''];
   _carrinho.forEach(function(item, idx){
-    linhas.push('*' + (idx+1) + '. ' + item.nome + '* — ' + fmt(item.preco));
+    linhas.push('*' + (idx+1) + '. ' + (item.qty > 1 ? item.qty + 'x ' : '') + item.nome + '* — ' + fmt(item.preco));
     if (item.adicionados.length) linhas.push('  ✅ Adicionar: ' + item.adicionados.map(function(a){return a.nome+' (+R$'+a.preco.toFixed(2).replace('.',',')+')';}).join(', '));
     if (item.retirados.length)   linhas.push('  ❌ Retirar: ' + item.retirados.join(', '));
     if (item.obs)                linhas.push('  📝 Obs: ' + item.obs);
