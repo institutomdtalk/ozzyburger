@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ozzy Burger</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:        #0B1D3A;
+  --navy-deep:   #050D1A;
+  --navy-mid:    #0F2645;
+  --navy-light:  #163158;
+  --navy-surface:#0A1929;
+  --gold:        #C4A45A;
+  --gold-light:  #D4BA7A;
+  --gold-pale:   #E8D9B0;
+  --gold-glow:   rgba(196,164,90,0.12);
+  --gold-faint:  rgba(196,164,90,0.05);
+  --gold-line:   rgba(196,164,90,0.18);
+  --white:       #FFFFFF;
+  --off-white:   #F6F4EF;
+  --cream:       #FAF8F3;
+  --warm-gray:   #9A9590;
+  --text-body:   #3A3632;
+  --text-muted:  #6B6560;
+  --border:      rgba(11,29,58,0.06);
+  --border-gold: rgba(196,164,90,0.22);
+  --serif:  'Cormorant Garamond', Georgia, serif;
+  --sans:   'Raleway', 'Helvetica Neue', Arial, sans-serif;
+  --radius: 4px;
+  --shadow-sm:  0 1px 4px rgba(11,29,58,0.04);
+  --shadow-md:  0 6px 24px rgba(11,29,58,0.07);
+  --shadow-lg:  0 16px 48px rgba(11,29,58,0.10);
+  --shadow-gold:0 8px 32px rgba(196,164,90,0.12);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
+
+/* ═══ HEADER ═══ */
+.header{
+  background:#000000;
+  position:relative;
+  overflow:hidden;
+  min-height:260px;
+}
+/* Vinheta cinematográfica */
+.header::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 70% at 15% 50%, rgba(196,164,90,0.07) 0%,transparent 65%),
+    radial-gradient(ellipse 40% 40% at 80% 50%, rgba(196,164,90,0.03) 0%,transparent 60%),
+    radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events:none;
+  z-index:1;
+}
+/* Grain cinematográfico animado */
+.header::after{
+  content:'';position:absolute;inset:0;opacity:0.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:1;
+  animation:grainShift 0.15s steps(1) infinite;
+}
+@keyframes grainShift{
+  0%  {background-position:0 0}
+  25% {background-position:-5% -10%}
+  50% {background-position:-10% 5%}
+  75% {background-position:5% -5%}
+  100%{background-position:10% 10%}
+}
+
+.hgeo{position:absolute;pointer-events:none;z-index:0}
+.hgeo--ring{width:280px;height:280px;border:1px solid rgba(196,164,90,0.05);border-radius:50%;top:-80px;right:-60px;animation:geoFloat 22s ease-in-out infinite}
+.hgeo--line{width:1px;height:100px;background:linear-gradient(180deg,transparent,rgba(196,164,90,0.12),transparent);top:15%;left:8%;animation:geoFloat 18s ease-in-out infinite}
+.hgeo--diamond{width:10px;height:10px;border:1px solid rgba(196,164,90,0.15);transform:rotate(45deg);top:40%;right:12%;animation:geoPulse 7s ease-in-out infinite}
+
+@keyframes geoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+@keyframes geoPulse{0%,100%{opacity:0.4;transform:rotate(45deg) scale(1)}50%{opacity:1;transform:rotate(45deg) scale(1.4)}}
+@keyframes heroReveal{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ HEADER INNER — layout com burger ═══ */
+.header-inner{
+  position:relative;z-index:2;
+  max-width:1100px;margin:0 auto;
+  padding:60px 36px 40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:40px;
+}
+.header-text{flex:1;min-width:0}
+
+/* ═══ BURGER ILLUSTRATION ═══ */
+.burger-scene{
+  position:relative;
+  flex-shrink:0;
+  width:260px;
+  height:220px;
+  z-index:2;
+}
+
+/* Halo de luz dourada atrás */
+.burger-halo{
+  position:absolute;
+  top:50%;left:50%;
+  width:200px;height:200px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(196,164,90,0.18) 0%, rgba(196,164,90,0.06) 40%, transparent 70%);
+  animation:haloPulse 3s ease-in-out infinite;
+  filter:blur(8px);
+}
+@keyframes haloPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.7}
+  50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}
+}
+
+/* Partículas de vapor */
+.burger-steam{
+  position:absolute;
+  top:8px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:10px;
+}
+.steam-line{
+  width:2px;
+  border-radius:2px;
+  background:linear-gradient(to top, rgba(255,255,255,0.25), transparent);
+  animation:steamRise 2s ease-in-out infinite;
+}
+.steam-line:nth-child(1){height:28px;animation-delay:0s}
+.steam-line:nth-child(2){height:36px;animation-delay:0.4s}
+.steam-line:nth-child(3){height:22px;animation-delay:0.8s}
+.steam-line:nth-child(4){height:32px;animation-delay:0.2s}
+@keyframes steamRise{
+  0%{transform:translateY(0) scaleX(1);opacity:0}
+  20%{opacity:0.8}
+  80%{opacity:0.3}
+  100%{transform:translateY(-30px) scaleX(1.5);opacity:0}
+}
+
+/* SVG Burger */
+.burger-svg-wrap{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-44%);
+  animation:burgerFloat 4s ease-in-out infinite;
+  filter:drop-shadow(0 20px 40px rgba(0,0,0,0.8)) drop-shadow(0 0 30px rgba(196,164,90,0.15));
+}
+@keyframes burgerFloat{
+  0%,100%{transform:translate(-50%,-44%) translateY(0) rotate(0deg)}
+  30%{transform:translate(-50%,-44%) translateY(-8px) rotate(-1.5deg)}
+  70%{transform:translate(-50%,-44%) translateY(-4px) rotate(1deg)}
+}
+
+/* Camadas do burger animadas individualmente */
+.burger-layer{
+  transform-origin:center;
+}
+.burger-layer--bun-top{animation:layerBounce 4s ease-in-out infinite 0s}
+.burger-layer--sesame{animation:layerBounce 4s ease-in-out infinite 0.05s}
+.burger-layer--lettuce{animation:layerWobble 4s ease-in-out infinite 0.15s}
+.burger-layer--cheese{animation:layerBounce 4s ease-in-out infinite 0.1s}
+.burger-layer--patty{animation:layerBounce 4s ease-in-out infinite 0.2s}
+.burger-layer--tomato{animation:layerWobble 4s ease-in-out infinite 0.25s}
+.burger-layer--bun-bot{animation:layerBounce 4s ease-in-out infinite 0.3s}
+
+@keyframes layerBounce{
+  0%,100%{transform:translateY(0)}
+  30%{transform:translateY(-8px)}
+  70%{transform:translateY(-4px)}
+}
+@keyframes layerWobble{
+  0%,100%{transform:translateY(0) scaleX(1)}
+  30%{transform:translateY(-8px) scaleX(1.04)}
+  70%{transform:translateY(-4px) scaleX(0.98)}
+}
+
+/* Reflexo de chão */
+.burger-reflection{
+  position:absolute;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:180px;height:20px;
+  border-radius:50%;
+  background:radial-gradient(ellipse, rgba(196,164,90,0.2) 0%, transparent 70%);
+  animation:shadowPulse 4s ease-in-out infinite;
+}
+@keyframes shadowPulse{
+  0%,100%{transform:translateX(-50%) scaleX(1);opacity:0.6}
+  30%{transform:translateX(-50%) scaleX(0.8);opacity:0.3}
+}
+
+.brand-label{
+  font-size:9px;font-weight:700;letter-spacing:5px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+.brand-title{
+  font-family:'Bebas Neue', var(--serif);
+  font-size:clamp(3rem,8vw,6rem);
+  font-weight:400;color:var(--white);line-height:0.95;
+  letter-spacing:4px;
+  margin-bottom:16px;
+  background:linear-gradient(135deg,var(--white) 30%,var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+.brand-tagline{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1rem,2vw,1.25rem);
+  font-weight:300;
+  color:rgba(255,255,255,0.55);
+  max-width:520px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+.header-divider{
+  width:48px;height:1px;background:var(--gold);
+  margin:20px 0;opacity:0.5;
+}
+
+/* Barra de busca */
+.header-search{
+  position:relative;z-index:1;
+  max-width:1100px;margin:0 auto;
+  padding:0 36px 48px;
+}
+.search-wrap{
+  display:flex;align-items:center;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(196,164,90,0.2);
+  border-radius:var(--radius);
+  max-width:520px;
+  transition:all 0.4s ease;
+  overflow:hidden;
+}
+.search-wrap:focus-within{
+  background:rgba(255,255,255,0.1);
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+}
+.search-icon{padding:0 14px;flex-shrink:0;display:flex;align-items:center}
+.search-icon svg{width:15px;height:15px;stroke:rgba(196,164,90,0.5);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.search-input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-family:var(--sans);font-size:12px;font-weight:500;
+  letter-spacing:0.5px;color:var(--white);
+  padding:13px 16px 13px 0;
+}
+.search-input::placeholder{color:rgba(255,255,255,0.25)}
+.search-clear{
+  padding:0 14px;flex-shrink:0;background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.25);font-size:16px;line-height:1;
+  display:none;transition:color 0.2s;
+}
+.search-clear:hover{color:var(--gold)}
+.search-clear.visible{display:block}
+
+.header-gold-line{
+  position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 5%,var(--gold) 30%,var(--gold) 70%,transparent 95%);
+  opacity:0.3;
+}
+
+/* ═══ DASHBOARD ═══ */
+.dashboard{
+  max-width:1100px;margin:0 auto;
+  padding:28px 36px 60px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  align-items:start;
+}
+
+/* ═══ SECTION HEADER ═══ */
+.section-header{
+  grid-column:1/-1;
+  display:flex;align-items:center;gap:20px;
+  padding:20px 0 10px;margin-top:32px;
+}
+.section-header:first-child{margin-top:0}
+.section-header-line{flex:1;height:1px;background:linear-gradient(90deg,rgba(196,164,90,0.5),transparent)}
+.section-title{
+  font-family:var(--serif);font-size:1.7rem;font-weight:400;
+  color:var(--navy);white-space:nowrap;line-height:1;letter-spacing:0.5px;
+}
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1),transform 0.8s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ═══ CARD BASE ═══ */
+.card{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent 10%,var(--gold) 50%,transparent 90%);
+  transform:scaleX(0);transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.card:hover::before{transform:scaleX(1)}
+.card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--border-gold)}
+
+/* ═══ LINK CARDS ═══ */
+.card--link{
+  display:flex;flex-direction:row;
+  text-decoration:none;color:inherit;cursor:pointer;
+  background:var(--off-white);
+  border:1.5px dashed rgba(196,164,90,0.35) !important;
+  box-shadow:none !important;
+  transition:background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.card--link::before{display:none !important}
+.card--link:hover{
+  background:var(--white) !important;
+  border-color:rgba(196,164,90,0.6) !important;
+  border-style:solid !important;
+  box-shadow:0 4px 24px rgba(196,164,90,0.1) !important;
+  transform:none !important;
+}
+.card--link .card-pad{
+  flex:1;display:flex;flex-direction:row;
+  align-items:center;gap:18px;padding:18px 20px;
+}
+
+.link-icon-wrap{
+  position:relative;flex-shrink:0;
+  width:56px;height:56px;
+  display:flex;align-items:center;justify-content:center;
+}
+.link-icon-wrap::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:1px dashed rgba(196,164,90,0);
+  transition:border-color 0.4s ease;
+}
+.card--link:hover .link-icon-wrap::after{
+  border-color:rgba(196,164,90,0.5);
+  animation:spinRing 3s linear infinite;
+}
+@keyframes spinRing{to{transform:rotate(360deg)}}
+
+.link-icon{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:box-shadow 0.35s ease;
+}
+.link-icon svg{width:20px;height:20px}
+.link-icon--navy{
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  box-shadow:0 2px 8px rgba(11,29,58,0.15);
+}
+.link-icon--navy svg{stroke:var(--gold-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.card--link:hover .link-icon{box-shadow:0 4px 16px rgba(11,29,58,0.2)}
+
+.link-text{flex:1;min-width:0}
+.card-title{
+  font-family:var(--serif);font-size:1.3rem;font-weight:500;
+  color:var(--navy);line-height:1.2;margin-bottom:0;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.card-subtitle{
+  font-size:11px;color:var(--text-muted);
+  margin-top:3px;line-height:1.4;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.card-arrow{
+  flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:6px;
+  border-bottom:1px solid transparent;transition:all 0.3s ease;
+}
+.card-arrow svg{
+  width:12px;height:12px;stroke:currentColor;fill:none;
+  stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  transition:transform 0.3s ease;
+}
+.card--link:hover .card-arrow{color:var(--navy);border-bottom-color:var(--gold);gap:10px}
+.card--link:hover .card-arrow svg{transform:translateX(4px)}
+
+/* Icon hover animations */
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.2)}28%{transform:scale(1)}42%{transform:scale(1.12)}70%{transform:scale(1)}}
+@keyframes wobble{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}60%{transform:translateY(2px)}}
+@keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+.card--link:hover .icon-lanche svg  { animation: heartbeat 1.4s ease-in-out infinite }
+.card--link:hover .icon-porcao svg  { animation: wobble   2s ease-in-out infinite }
+.card--link:hover .icon-sobremesa svg { animation: bounce 1s ease-in-out infinite }
+.card--link:hover .icon-bebida svg  { animation: spin     6s linear infinite }
+
+/* ═══ EMPTY SEARCH ═══ */
+.search-empty{
+  grid-column:1/-1;text-align:center;padding:60px 0;
+  font-family:var(--serif);font-size:1.1rem;color:var(--text-muted);
+  font-style:italic;display:none;
+}
+
+/* ═══ CONTACT STRIP ═══ */
+.contact-strip{
+  grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);overflow:hidden;
+}
+.contact-item{
+  display:flex;align-items:center;gap:14px;
+  padding:22px 22px;text-decoration:none;color:inherit;
+  border-right:1px solid var(--border);
+  transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+  position:relative;overflow:hidden;
+}
+.contact-item::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.contact-item:hover::before{transform:scaleX(1)}
+.contact-item:last-child{border-right:none}
+.contact-item:hover{background:var(--gold-faint);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.contact-icon-wrap{
+  width:42px;height:42px;border-radius:50%;
+  background:var(--off-white);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all 0.4s ease;
+}
+.contact-item:hover .contact-icon-wrap{background:var(--gold-glow);border-color:var(--border-gold)}
+.contact-icon-wrap svg{width:18px;height:18px;fill:none;stroke:var(--navy);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.contact-item-label{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--warm-gray);margin-bottom:2px}
+.contact-item-value{font-size:13px;font-weight:600;color:var(--navy)}
+
+/* ═══ ORNAMENT ═══ */
+.ornament{
+  grid-column:1/-1;display:flex;align-items:center;justify-content:center;
+  gap:16px;padding:4px 0;
+}
+.ornament-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-line),transparent)}
+.ornament-diamond{
+  width:6px;height:6px;background:var(--gold);transform:rotate(45deg);
+  opacity:0.5;flex-shrink:0;animation:geoPulse 4s ease-in-out infinite;
+}
+
+/* ═══ FOOTER ═══ */
+.footer{background:var(--navy-deep);text-align:center;padding:44px 24px;position:relative}
+.footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.25}
+.footer-brand{font-family:var(--serif);font-size:1.15rem;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
+.footer-tagline{font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(255,255,255,0.22);margin-bottom:16px}
+.footer-copy{font-size:10px;color:rgba(255,255,255,0.18);letter-spacing:0.5px}
+
+/* ═══ TOAST ═══ */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:var(--white);padding:13px 28px;border-radius:var(--radius);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.5px;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.22,1,0.36,1);z-index:200;white-space:nowrap;box-shadow:var(--shadow-lg);border-left:2px solid var(--gold)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  .dashboard{grid-template-columns:1fr;padding:20px 18px 48px;gap:10px}
+  .header-inner{padding:36px 20px 28px;flex-direction:column;align-items:flex-start;gap:24px}
+  .burger-scene{width:160px;height:140px;align-self:center}
+  .burger-svg-wrap svg{width:130px;height:110px}
+  .header-search{padding:0 20px 36px}
+  .contact-strip{grid-template-columns:1fr}
+  .contact-item{border-right:none;border-bottom:1px solid var(--border)}
+  .contact-item:last-child{border-bottom:none}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="hgeo hgeo--ring"></div>
+  <div class="hgeo hgeo--line"></div>
+  <div class="hgeo hgeo--diamond"></div>
+
+  <div class="header-inner">
+    <!-- Texto esquerdo -->
+    <div class="header-text">
+      <p class="brand-label">Menu On-Line</p>
+      <h1 class="brand-title">Ozzy Burger</h1>
+      <div class="header-divider"></div>
+      <p class="brand-tagline">Seu pedido é uma honra. Acesse o cardápio abaixo e faça o seu pedido!</p>
+    </div>
+
+    <!-- Burger direito -->
+    <div class="burger-scene">
+      <div class="burger-halo"></div>
+      <div class="burger-steam">
+        <div class="steam-line"></div>
+        <div class="steam-line"></div>
+        <div class="steam-line"></div>
+        <div class="steam-line"></div>
+      </div>
+      <div class="burger-svg-wrap">
+        <svg width="200" height="170" viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- BUN TOP -->
+          <g class="burger-layer burger-layer--bun-top">
+            <ellipse cx="100" cy="42" rx="72" ry="38" fill="url(#bun-grad)" opacity="0.92"/>
+            <ellipse cx="100" cy="42" rx="72" ry="38" fill="url(#bun-shadow)" />
+            <ellipse cx="100" cy="46" rx="70" ry="10" fill="rgba(0,0,0,0.15)" />
+          </g>
+          <!-- SESAME SEEDS -->
+          <g class="burger-layer burger-layer--sesame" opacity="0.85">
+            <ellipse cx="82"  cy="28" rx="5" ry="3" fill="#e8d090" transform="rotate(-15 82 28)"/>
+            <ellipse cx="100" cy="22" rx="5" ry="3" fill="#e8d090" transform="rotate(5 100 22)"/>
+            <ellipse cx="118" cy="28" rx="5" ry="3" fill="#e8d090" transform="rotate(20 118 28)"/>
+            <ellipse cx="90"  cy="18" rx="4" ry="2.5" fill="#e8d090" transform="rotate(-10 90 18)"/>
+            <ellipse cx="110" cy="20" rx="4" ry="2.5" fill="#e8d090" transform="rotate(12 110 20)"/>
+          </g>
+          <!-- LETTUCE -->
+          <g class="burger-layer burger-layer--lettuce">
+            <path d="M25 82 Q40 72 55 80 Q70 68 85 78 Q100 66 115 76 Q130 68 145 78 Q160 70 175 80 L175 90 Q160 82 145 88 Q130 80 115 88 Q100 78 85 90 Q70 82 55 92 Q40 84 25 92 Z" fill="#4a7c40" opacity="0.88"/>
+            <path d="M25 80 Q40 70 55 78 Q70 66 85 76 Q100 64 115 74 Q130 66 145 76 Q160 68 175 78" stroke="#5a9c50" stroke-width="1.5" fill="none" opacity="0.6"/>
+          </g>
+          <!-- CHEESE -->
+          <g class="burger-layer burger-layer--cheese">
+            <rect x="26" y="90" width="148" height="14" rx="2" fill="#f5c842" opacity="0.95"/>
+            <path d="M26 98 L40 104 L26 104 Z" fill="#e8b830" opacity="0.8"/>
+            <path d="M174 98 L160 104 L174 104 Z" fill="#e8b830" opacity="0.8"/>
+            <rect x="26" y="90" width="148" height="2" rx="1" fill="#ffe270" opacity="0.5"/>
+          </g>
+          <!-- PATTY -->
+          <g class="burger-layer burger-layer--patty">
+            <ellipse cx="100" cy="112" rx="74" ry="14" fill="#5c2e0a" opacity="0.95"/>
+            <ellipse cx="100" cy="110" rx="74" ry="13" fill="url(#patty-grad)" opacity="0.95"/>
+            <ellipse cx="100" cy="106" rx="72" ry="8" fill="rgba(255,255,255,0.04)"/>
+            <!-- Char marks -->
+            <path d="M55 108 Q70 104 85 108" stroke="#3a1a04" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M95 107 Q110 103 125 107" stroke="#3a1a04" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.7"/>
+            <path d="M130 109 Q142 105 152 109" stroke="#3a1a04" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.6"/>
+          </g>
+          <!-- TOMATO -->
+          <g class="burger-layer burger-layer--tomato">
+            <ellipse cx="100" cy="128" rx="68" ry="9" fill="#c0392b" opacity="0.90"/>
+            <ellipse cx="100" cy="127" rx="68" ry="8" fill="url(#tomato-grad)" opacity="0.90"/>
+            <ellipse cx="100" cy="124" rx="66" ry="5" fill="rgba(255,255,255,0.08)"/>
+            <path d="M40 127 L70 127 M80 127 L120 127 M130 127 L160 127" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+          </g>
+          <!-- BUN BOTTOM -->
+          <g class="burger-layer burger-layer--bun-bot">
+            <ellipse cx="100" cy="148" rx="74" ry="16" fill="url(#bun-bot-grad)" opacity="0.93"/>
+            <ellipse cx="100" cy="142" rx="72" ry="10" fill="rgba(255,255,255,0.06)"/>
+            <ellipse cx="100" cy="155" rx="72" ry="8" fill="rgba(0,0,0,0.25)"/>
+          </g>
+
+          <!-- DEFS -->
+          <defs>
+            <radialGradient id="bun-grad" cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#f5c878"/>
+              <stop offset="60%" stop-color="#d4821a"/>
+              <stop offset="100%" stop-color="#a85c10"/>
+            </radialGradient>
+            <radialGradient id="bun-shadow" cx="50%" cy="80%" r="55%">
+              <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+              <stop offset="100%" stop-color="rgba(0,0,0,0.3)" />
+            </radialGradient>
+            <linearGradient id="patty-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8b4513"/>
+              <stop offset="50%" stop-color="#6b2e0a"/>
+              <stop offset="100%" stop-color="#4a1f06"/>
+            </linearGradient>
+            <linearGradient id="tomato-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e74c3c"/>
+              <stop offset="100%" stop-color="#922b21"/>
+            </linearGradient>
+            <linearGradient id="bun-bot-grad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#e8a84a"/>
+              <stop offset="100%" stop-color="#b8721a"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="burger-reflection"></div>
+    </div>
+  </div>
+
+  <div class="header-search">
+    <div class="search-wrap">
+      <div class="search-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <input class="search-input" id="search-input" type="text" placeholder="Buscar no cardápio..." autocomplete="off" spellcheck="false">
+      <button class="search-clear" id="search-clear">×</button>
+    </div>
+  </div>
+
+  <div class="header-gold-line"></div>
+</header>
+
+<main class="dashboard">
+  <div class="search-empty">Nenhum item encontrado.</div>
+
+  <!-- ══ LANCHES ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1">
+    <div><p class="section-title">Lanches</p></div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="card card--link reveal" style="cursor:pointer">
+    <div class="card-pad">
+      <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-lanche">
+        <svg viewBox="0 0 24 24"><path d="M3 11h18"/><path d="M5 11V7a7 7 0 0114 0v4"/><rect x="3" y="11" width="18" height="3" rx="1"/><path d="M5 14v2a7 7 0 0014 0v-2"/></svg>
+      </div></div>
+      <div class="link-text">
+        <h3 class="card-title">Lanches</h3>
+        <p class="card-subtitle">Hambúrgueres, smash burgers, combos...</p>
+        <span class="card-arrow">Ver cardápio <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PORÇÕES ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1">
+    <div><p class="section-title">Porções</p></div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="card card--link reveal" style="cursor:pointer">
+    <div class="card-pad">
+      <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-porcao">
+        <svg viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M7 6v12"/><path d="M17 6v12"/><path d="M3 12h18"/><path d="M3 18h18"/></svg>
+      </div></div>
+      <div class="link-text">
+        <h3 class="card-title">Porções</h3>
+        <p class="card-subtitle">Batata frita, onion rings, nuggets...</p>
+        <span class="card-arrow">Ver cardápio <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SOBREMESAS ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1">
+    <div><p class="section-title">Sobremesas</p></div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="card card--link reveal" style="cursor:pointer">
+    <div class="card-pad">
+      <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-sobremesa">
+        <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5c0 3-3 5-5 9-2-4-5-6-5-9a5 5 0 015-5z"/><path d="M8 20h8"/><path d="M10 20v-4"/><path d="M14 20v-4"/></svg>
+      </div></div>
+      <div class="link-text">
+        <h3 class="card-title">Sobremesas</h3>
+        <p class="card-subtitle">Milkshakes, sorvetes, brownies...</p>
+        <span class="card-arrow">Ver cardápio <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ BEBIDAS ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1">
+    <div><p class="section-title">Bebidas</p></div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="card card--link reveal" style="cursor:pointer">
+    <div class="card-pad">
+      <div class="link-icon-wrap"><div class="link-icon link-icon--navy icon-bebida">
+        <svg viewBox="0 0 24 24"><path d="M5 3h14l-2 14H7z"/><path d="M9 3V1"/><path d="M15 3V1"/><path d="M7 17a5 5 0 0010 0"/></svg>
+      </div></div>
+      <div class="link-text">
+        <h3 class="card-title">Bebidas</h3>
+        <p class="card-subtitle">Sucos, refrigerantes, cervejas, águas...</p>
+        <span class="card-arrow">Ver cardápio <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ornament reveal">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line"></div>
+  </div>
+
+  <!-- CONTATO -->
+  <div class="contact-strip reveal">
+    <a href="#" class="contact-item">
+      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><path d="M17.5 6.5h.01"/></svg></div>
+      <div><p class="contact-item-label">Instagram</p><p class="contact-item-value">@ozzyburger</p></div>
+    </a>
+    <a href="#" class="contact-item">
+      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div><p class="contact-item-label">E-mail</p><p class="contact-item-value">contato@ozzyburger.com</p></div>
+    </a>
+    <a href="#" class="contact-item">
+      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
+      <div><p class="contact-item-label">WhatsApp</p><p class="contact-item-value">Fazer pedido</p></div>
+    </a>
+  </div>
+
+</main>
+
+<footer class="footer">
+  <p class="footer-brand">Ozzy Burger</p>
+  <p class="footer-tagline">Seu pedido é uma honra.</p>
+  <p class="footer-copy">&copy; 2026 Ozzy Burger &mdash; Todos os direitos reservados.</p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── SCROLL REVEAL ──
+function initReveal() {
+  var reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    reveals.forEach(function(el){ el.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  reveals.forEach(function(el){ obs.observe(el); });
+}
+
+// ── BUSCA ──
+function initBusca() {
+  var input    = document.getElementById('search-input');
+  var clearBtn = document.getElementById('search-clear');
+  var emptyEl  = document.querySelector('.search-empty');
+  if (!input) return;
+
+  function normalize(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+
+  input.addEventListener('input', function(){
+    var q = normalize(this.value.trim());
+    clearBtn.classList.toggle('visible', q.length > 0);
+    var cards    = document.querySelectorAll('.card--link');
+    var sections = document.querySelectorAll('.section-header');
+    var count    = 0;
+
+    if (!q) {
+      cards.forEach(function(c){ c.style.display = ''; });
+      sections.forEach(function(s){ s.style.display = ''; });
+      if (emptyEl) emptyEl.style.display = 'none';
+      return;
+    }
+
+    cards.forEach(function(c){ c.style.display = 'none'; });
+    sections.forEach(function(s){ s.style.display = 'none'; });
+
+    cards.forEach(function(c){
+      var titulo = c.querySelector('.card-title');
+      var sub    = c.querySelector('.card-subtitle');
+      var texto  = (titulo ? titulo.textContent : '') + ' ' + (sub ? sub.textContent : '');
+      if (normalize(texto).indexOf(q) !== -1) { c.style.display = ''; count++; }
+    });
+
+    sections.forEach(function(section){
+      var next = section.nextElementSibling;
+      while (next && !next.classList.contains('section-header')) {
+        if (next.classList.contains('card--link') && next.style.display !== 'none') {
+          section.style.display = '';
+          break;
+        }
+        next = next.nextElementSibling;
+      }
+    });
+
+    if (emptyEl) emptyEl.style.display = count === 0 ? 'block' : 'none';
+  });
+
+  clearBtn.addEventListener('click', function(){
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+  });
+}
+
+window.addEventListener('load', function(){
+  setTimeout(initReveal, 80);
+  initBusca();
+});
+</script>
+</body>
+</html>
