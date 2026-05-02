@@ -37,7 +37,7 @@
 
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased}
+body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;padding-bottom:80px}
 
 /* ═══ HEADER ═══ */
 .header{
@@ -496,7 +496,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 /* Acordeões */
 .lanche-acordeao{
   border-top:1px solid var(--border);
-  margin-top:14px;
 }
 .lanche-acordeao-btn{
   width:100%;background:none;border:none;cursor:pointer;
@@ -525,27 +524,68 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1);
   background:var(--off-white);
 }
-.lanche-acordeao-body.open{max-height:300px}
-.lanche-ac-lista{
-  list-style:none;padding:10px 18px 14px;
+.lanche-acordeao-body.open{max-height:400px}
+
+/* Itens com checkbox */
+.lanche-ac-lista{list-style:none;padding:8px 14px 12px;}
+.lanche-ac-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 4px;border-bottom:1px solid rgba(11,29,58,0.04);
+  gap:8px;
 }
-.lanche-ac-lista li{
-  font-size:12.5px;color:var(--text-muted);
-  padding:4px 0;display:flex;align-items:center;gap:8px;
+.lanche-ac-item:last-child{border-bottom:none}
+.lanche-ac-check{
+  display:flex;align-items:center;gap:8px;flex:1;cursor:pointer;
 }
-.lanche-ac-lista li::before{
-  content:'+';font-size:11px;font-weight:700;
-  color:#2D6A4F;flex-shrink:0;width:14px;text-align:center;
+.lanche-ac-check input[type=checkbox]{
+  width:15px;height:15px;accent-color:var(--gold);
+  cursor:pointer;flex-shrink:0;
 }
-.lanche-acordeao-btn.rem + .lanche-acordeao-body .lanche-ac-lista li::before{
-  content:'−';color:#A32D2D;
+.lanche-ac-check input[type=checkbox].rem-check{accent-color:#A32D2D}
+.lanche-ac-nome{font-size:12.5px;color:var(--text-body);line-height:1.3}
+.lanche-ac-preco{
+  font-size:11px;font-weight:700;color:#2D6A4F;
+  white-space:nowrap;flex-shrink:0;
 }
+.lanche-ac-item.rem-item .lanche-ac-preco{color:var(--text-muted);font-weight:400;font-style:italic;font-size:10px}
+
+/* Botão adicionar ao pedido */
+.lanche-add-pedido-wrap{
+  padding:14px 18px 18px;
+  border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.lanche-preco-base{
+  display:flex;flex-direction:column;
+}
+.lanche-preco-label{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted)}
+.lanche-preco-valor{
+  font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--navy);line-height:1;
+}
+.lanche-preco-valor span{font-size:0.85rem;font-weight:400;color:var(--text-muted)}
+.btn-add-pedido{
+  display:flex;align-items:center;gap:8px;
+  background:var(--navy);color:var(--white);
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:11px 20px;border-radius:var(--radius);border:none;
+  cursor:pointer;transition:all 0.3s ease;white-space:nowrap;
+  position:relative;overflow:hidden;
+}
+.btn-add-pedido::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+  transform:translateX(-100%);
+}
+.btn-add-pedido:hover{background:var(--navy-light);box-shadow:0 4px 16px rgba(11,29,58,0.25)}
+.btn-add-pedido:hover::after{transform:translateX(100%);transition:transform 0.5s ease}
+.btn-add-pedido svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-add-pedido.adicionado{background:#2D6A4F;animation:addPulse 0.4s ease}
+@keyframes addPulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
 
 /* Observações */
 .lanche-obs-wrap{
-  padding:12px 18px 18px;
-  border-top:1px solid var(--border);
-  margin-top:2px;
+  padding:10px 18px 0;
 }
 .lanche-obs-label{
   font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
@@ -556,13 +596,151 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   background:var(--cream);font-family:var(--sans);font-size:12.5px;
   color:var(--text-body);padding:9px 12px;resize:none;outline:none;
   transition:border-color 0.3s ease, box-shadow 0.3s ease;
-  min-height:60px;line-height:1.5;
+  min-height:52px;line-height:1.5;
 }
 .lanche-obs:focus{
   border-color:rgba(196,164,90,0.5);
   box-shadow:0 0 0 3px rgba(196,164,90,0.08);
 }
 .lanche-obs::placeholder{color:rgba(107,101,96,0.4);font-style:italic}
+
+/* ═══ CARRINHO FLUTUANTE ═══ */
+.carrinho-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  z-index:400;
+  transform:translateY(100%);
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.carrinho-bar.visible{transform:translateY(0)}
+
+.carrinho-inner{
+  background:var(--navy-deep);
+  border-top:1px solid rgba(196,164,90,0.3);
+  box-shadow:0 -8px 40px rgba(0,0,0,0.4);
+  max-width:100%;
+  position:relative;overflow:hidden;
+}
+.carrinho-inner::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0.4;
+}
+
+/* Linha resumo (sempre visível) */
+.carrinho-resumo{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 24px;cursor:pointer;gap:16px;
+}
+.carrinho-resumo-left{display:flex;align-items:center;gap:14px}
+.carrinho-icone{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--gold);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  position:relative;
+}
+.carrinho-icone svg{width:16px;height:16px;stroke:var(--navy-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carrinho-badge{
+  position:absolute;top:-4px;right:-4px;
+  width:17px;height:17px;border-radius:50%;
+  background:#FF1A1A;color:#fff;
+  font-size:9px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid var(--navy-deep);
+}
+.carrinho-label{
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);
+}
+.carrinho-label strong{color:var(--white);font-size:11px}
+.carrinho-total{
+  font-family:var(--serif);font-size:1.5rem;font-weight:600;
+  color:var(--gold);line-height:1;
+}
+.carrinho-toggle-icon{
+  width:26px;height:26px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform 0.3s ease;
+}
+.carrinho-toggle-icon svg{width:12px;height:12px;stroke:rgba(255,255,255,0.5);fill:none;stroke-width:2;stroke-linecap:round}
+.carrinho-bar.aberto .carrinho-toggle-icon{transform:rotate(180deg)}
+
+/* Painel expandido */
+.carrinho-painel{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.45s cubic-bezier(0.22,1,0.36,1);
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.carrinho-bar.aberto .carrinho-painel{max-height:60vh}
+.carrinho-painel-inner{
+  padding:16px 24px 20px;
+  overflow-y:auto;max-height:45vh;
+}
+
+.carrinho-item{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+  padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);
+}
+.carrinho-item:last-child{border-bottom:none}
+.carrinho-item-nome{
+  font-family:var(--serif);font-size:1rem;font-weight:500;color:var(--white);
+  margin-bottom:3px;
+}
+.carrinho-item-detalhe{font-size:11px;color:rgba(255,255,255,0.4);line-height:1.5}
+.carrinho-item-preco{
+  font-family:var(--serif);font-size:1.05rem;font-weight:600;
+  color:var(--gold);white-space:nowrap;flex-shrink:0;
+}
+.carrinho-item-remove{
+  background:none;border:none;cursor:pointer;
+  color:rgba(255,255,255,0.2);font-size:16px;line-height:1;
+  padding:0 4px;transition:color 0.2s ease;flex-shrink:0;
+}
+.carrinho-item-remove:hover{color:#F87171}
+
+.carrinho-vazio{
+  text-align:center;padding:24px 0;
+  font-family:var(--serif);font-style:italic;font-size:0.95rem;
+  color:rgba(255,255,255,0.25);
+}
+
+/* Rodapé do carrinho */
+.carrinho-footer{
+  padding:14px 24px 20px;
+  border-top:1px solid rgba(255,255,255,0.08);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.carrinho-subtotal{color:rgba(255,255,255,0.45);font-size:12px}
+.carrinho-subtotal strong{color:var(--white)}
+
+.btn-enviar-whats{
+  display:flex;align-items:center;gap:10px;
+  background:#25D366;color:#fff;
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:13px 24px;border-radius:var(--radius);border:none;
+  cursor:pointer;transition:all 0.3s ease;
+  position:relative;overflow:hidden;
+}
+.btn-enviar-whats::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
+  transform:translateX(-100%);
+}
+.btn-enviar-whats:hover{background:#1ebe5a;box-shadow:0 4px 20px rgba(37,211,102,0.4)}
+.btn-enviar-whats:hover::after{transform:translateX(100%);transition:transform 0.5s ease}
+.btn-enviar-whats:disabled{opacity:0.4;cursor:not-allowed}
+.btn-enviar-whats svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+
+.btn-limpar-carrinho{
+  background:none;border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.35);
+  font-family:var(--sans);font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:8px 14px;border-radius:var(--radius);cursor:pointer;
+  transition:all 0.3s ease;
+}
+.btn-limpar-carrinho:hover{border-color:rgba(248,113,113,0.4);color:#F87171}
 
 /* ═══ LIGHTBOX DA FOTO ═══ */
 .foto-overlay{
@@ -662,12 +840,11 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   <div class="lanche-grid reveal">
 
     <!-- ── X-Salada ── -->
-    <div class="lanche-card">
+    <div class="lanche-card" data-id="xsalada" data-nome="X-Salada" data-preco="32.90">
       <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1V-aWOaZRIFWSoJwKm4Wxe_rAfGiO4EJ7=s1600','X-Salada')">
         <img class="lanche-foto"
           src="https://lh3.googleusercontent.com/d/1V-aWOaZRIFWSoJwKm4Wxe_rAfGiO4EJ7=s600"
-          alt="X-Salada"
-          loading="lazy">
+          alt="X-Salada" loading="lazy">
         <div class="lanche-foto-overlay">
           <div class="lanche-zoom-hint">
             <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
@@ -689,25 +866,43 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
         </ul>
       </div>
 
-      <!-- Acrescentar -->
+      <!-- Adicionar ingredientes -->
       <div class="lanche-acordeao">
         <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
-          Acrescentar opções
+          Adicionar ingredientes
           <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
         </button>
         <div class="lanche-acordeao-body">
           <ul class="lanche-ac-lista">
-            <li>Bacon crocante</li>
-            <li>Ovo frito</li>
-            <li>Cheddar extra</li>
-            <li>Cebola caramelizada</li>
-            <li>Jalapeño</li>
-            <li>Cogumelos salteados</li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
+              <span class="lanche-ac-preco">+ R$ 4,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cebola caramelizada" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cebola caramelizada</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
+              <span class="lanche-ac-preco">+ R$ 2,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
+              <span class="lanche-ac-preco">+ R$ 5,00</span>
+            </li>
           </ul>
         </div>
       </div>
 
-      <!-- Retirar -->
+      <!-- Retirar ingredientes -->
       <div class="lanche-acordeao">
         <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
           Retirar ingredientes
@@ -715,11 +910,26 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
         </button>
         <div class="lanche-acordeao-body">
           <ul class="lanche-ac-lista">
-            <li>Alface</li>
-            <li>Tomate</li>
-            <li>Cebola</li>
-            <li>Picles</li>
-            <li>Maionese</li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Alface"><span class="lanche-ac-nome">Alface</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Tomate"><span class="lanche-ac-nome">Tomate</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola"><span class="lanche-ac-nome">Cebola</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Picles"><span class="lanche-ac-nome">Picles</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Maionese"><span class="lanche-ac-nome">Maionese</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -728,6 +938,18 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       <div class="lanche-obs-wrap">
         <label class="lanche-obs-label">Observações</label>
         <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
+      </div>
+
+      <!-- Preço + Adicionar -->
+      <div class="lanche-add-pedido-wrap">
+        <div class="lanche-preco-base">
+          <span class="lanche-preco-label">Total</span>
+          <div class="lanche-preco-valor"><span>R$ </span><span class="preco-display">32,90</span></div>
+        </div>
+        <button class="btn-add-pedido" onclick="adicionarAoPedido(this)">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Adicionar
+        </button>
       </div>
     </div>
 
@@ -829,25 +1051,255 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   <p class="foto-nome" id="foto-nome"></p>
 </div>
 
+<!-- CARRINHO FLUTUANTE -->
+<div class="carrinho-bar" id="carrinho-bar">
+  <div class="carrinho-inner">
+
+    <!-- Painel expandido -->
+    <div class="carrinho-painel" id="carrinho-painel">
+      <div class="carrinho-painel-inner" id="carrinho-lista"></div>
+      <div class="carrinho-footer">
+        <button class="btn-limpar-carrinho" onclick="limparCarrinho()">Limpar tudo</button>
+        <button class="btn-enviar-whats" id="btn-whats" onclick="enviarWhatsApp()">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enviar pedido
+        </button>
+      </div>
+    </div>
+
+    <!-- Resumo (sempre visível) -->
+    <div class="carrinho-resumo" onclick="toggleCarrinho()">
+      <div class="carrinho-resumo-left">
+        <div class="carrinho-icone">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          <span class="carrinho-badge" id="carrinho-badge">0</span>
+        </div>
+        <div class="carrinho-label">Meu Pedido<br><strong id="carrinho-resumo-txt">Nenhum item ainda</strong></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="carrinho-total" id="carrinho-total">R$ 0,00</div>
+        <div class="carrinho-toggle-icon">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── SCROLL REVEAL ──
-function initReveal() {
-  var reveals = document.querySelectorAll('.reveal');
-  if (!('IntersectionObserver' in window)) {
-    reveals.forEach(function(el){ el.classList.add('visible'); });
+// ══════════════════════════════════════════
+// CARRINHO
+// ══════════════════════════════════════════
+var _carrinho = []; // [{id, nome, preco, adicionados, retirados, obs}]
+var _carrinhoAberto = false;
+
+function fmt(v){ return 'R$ ' + v.toFixed(2).replace('.',','); }
+
+function atualizarPreco(cb) {
+  var card = cb.closest('.lanche-card');
+  var base = parseFloat(card.dataset.preco);
+  var extras = 0;
+  card.querySelectorAll('.add-check:checked').forEach(function(c){
+    extras += parseFloat(c.dataset.preco);
+  });
+  var display = card.querySelector('.preco-display');
+  if (display) display.textContent = (base + extras).toFixed(2).replace('.',',');
+}
+
+function adicionarAoPedido(btn) {
+  var card    = btn.closest('.lanche-card');
+  var id      = card.dataset.id + '_' + Date.now();
+  var nome    = card.dataset.nome;
+  var base    = parseFloat(card.dataset.preco);
+  var adicionados = [];
+  var extras  = 0;
+  card.querySelectorAll('.add-check:checked').forEach(function(c){
+    adicionados.push({nome: c.dataset.nome, preco: parseFloat(c.dataset.preco)});
+    extras += parseFloat(c.dataset.preco);
+  });
+  var retirados = [];
+  card.querySelectorAll('.rem-check:checked').forEach(function(c){
+    retirados.push(c.dataset.nome);
+  });
+  var obs = card.querySelector('.lanche-obs') ? card.querySelector('.lanche-obs').value.trim() : '';
+  var total = base + extras;
+
+  _carrinho.push({id:id, nome:nome, preco:total, base:base, adicionados:adicionados, retirados:retirados, obs:obs});
+
+  // Feedback visual
+  btn.classList.add('adicionado');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg> Adicionado!';
+  setTimeout(function(){
+    btn.classList.remove('adicionado');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> Adicionar';
+  }, 2000);
+
+  // Reset card
+  card.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.checked = false; });
+  if (card.querySelector('.lanche-obs')) card.querySelector('.lanche-obs').value = '';
+  atualizarPreco(card.querySelector('.add-check') || {closest:function(){return card;}});
+
+  renderCarrinho();
+  mostrarCarrinho();
+}
+
+function renderCarrinho() {
+  var lista  = document.getElementById('carrinho-lista');
+  var badge  = document.getElementById('carrinho-badge');
+  var total  = document.getElementById('carrinho-total');
+  var resumo = document.getElementById('carrinho-resumo-txt');
+  var bar    = document.getElementById('carrinho-bar');
+
+  if (!_carrinho.length) {
+    lista.innerHTML = '<div class="carrinho-vazio">Seu carrinho está vazio.</div>';
+    badge.textContent = '0';
+    total.textContent = 'R$ 0,00';
+    resumo.textContent = 'Nenhum item ainda';
+    bar.classList.remove('visible');
     return;
   }
+
+  var soma = _carrinho.reduce(function(acc,i){ return acc + i.preco; }, 0);
+  badge.textContent = _carrinho.length;
+  total.textContent = fmt(soma);
+  resumo.textContent = _carrinho.length + ' item' + (_carrinho.length > 1 ? 's' : '');
+
+  lista.innerHTML = _carrinho.map(function(item){
+    var detalhe = [];
+    if (item.adicionados.length) detalhe.push('+ ' + item.adicionados.map(function(a){return a.nome;}).join(', '));
+    if (item.retirados.length)   detalhe.push('− ' + item.retirados.join(', '));
+    if (item.obs)                detalhe.push('Obs: ' + item.obs);
+    return '<div class="carrinho-item">' +
+      '<div style="flex:1">' +
+        '<div class="carrinho-item-nome">' + item.nome + '</div>' +
+        (detalhe.length ? '<div class="carrinho-item-detalhe">' + detalhe.join('<br>') + '</div>' : '') +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:10px">' +
+        '<div class="carrinho-item-preco">' + fmt(item.preco) + '</div>' +
+        '<button class="carrinho-item-remove" onclick="removerItem(\'' + item.id + '\')" title="Remover">&#x2715;</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function mostrarCarrinho() {
+  var bar = document.getElementById('carrinho-bar');
+  bar.classList.add('visible');
+  // Abre automaticamente na primeira adição
+  if (_carrinho.length === 1) {
+    bar.classList.add('aberto');
+    _carrinhoAberto = true;
+  }
+}
+
+function toggleCarrinho() {
+  var bar = document.getElementById('carrinho-bar');
+  _carrinhoAberto = !_carrinhoAberto;
+  bar.classList.toggle('aberto', _carrinhoAberto);
+}
+
+function removerItem(id) {
+  _carrinho = _carrinho.filter(function(i){ return i.id !== id; });
+  renderCarrinho();
+  if (!_carrinho.length) _carrinhoAberto = false;
+}
+
+function limparCarrinho() {
+  _carrinho = [];
+  _carrinhoAberto = false;
+  document.getElementById('carrinho-bar').classList.remove('aberto');
+  renderCarrinho();
+}
+
+function enviarWhatsApp() {
+  if (!_carrinho.length) return;
+  var soma = _carrinho.reduce(function(acc,i){ return acc + i.preco; }, 0);
+  var linhas = ['🍔 *PEDIDO — OZZY BURGER*', ''];
+  _carrinho.forEach(function(item, idx){
+    linhas.push('*' + (idx+1) + '. ' + item.nome + '* — ' + fmt(item.preco));
+    if (item.adicionados.length) linhas.push('  ✅ Adicionar: ' + item.adicionados.map(function(a){return a.nome+' (+R$'+a.preco.toFixed(2).replace('.',',')+')';}).join(', '));
+    if (item.retirados.length)   linhas.push('  ❌ Retirar: ' + item.retirados.join(', '));
+    if (item.obs)                linhas.push('  📝 Obs: ' + item.obs);
+    linhas.push('');
+  });
+  linhas.push('━━━━━━━━━━━━━━━━━━');
+  linhas.push('💰 *TOTAL: ' + fmt(soma) + '*');
+  var msg = linhas.join('\n');
+  // Substitua pelo número real do WhatsApp da empresa
+  var numero = '5514997758941';
+  window.open('https://wa.me/' + numero + '?text=' + encodeURIComponent(msg), '_blank');
+}
+
+// ══════════════════════════════════════════
+// ACORDEÃO
+// ══════════════════════════════════════════
+function toggleAc(btn) {
+  var body = btn.nextElementSibling;
+  var open = body.classList.contains('open');
+  var card = btn.closest('.lanche-card');
+  card.querySelectorAll('.lanche-acordeao-body').forEach(function(b){ b.classList.remove('open'); });
+  card.querySelectorAll('.lanche-acordeao-btn').forEach(function(b){ b.classList.remove('open'); });
+  if (!open) { body.classList.add('open'); btn.classList.add('open'); }
+}
+
+// ══════════════════════════════════════════
+// FOTO LIGHTBOX
+// ══════════════════════════════════════════
+function abrirFoto(src, nome) {
+  var img = document.getElementById('foto-lightbox-img');
+  img.src = src;
+  var nomeEl = document.getElementById('foto-nome');
+  if (nomeEl) nomeEl.textContent = nome || '';
+  document.getElementById('foto-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function fecharFoto(e) {
+  if (e && e.target !== document.getElementById('foto-overlay') && !e.target.closest('.foto-close')) return;
+  document.getElementById('foto-overlay').classList.remove('active');
+  document.getElementById('foto-lightbox-img').src = '';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fecharFoto(); });
+
+// ══════════════════════════════════════════
+// STATUS HORÁRIO
+// ══════════════════════════════════════════
+function initStatus() {
+  function atualizar() {
+    var hora = new Date().getHours();
+    var aberto = (hora >= 18 && hora < 24);
+    var dot = document.getElementById('status-dot');
+    var txt = document.getElementById('status-text');
+    if (!dot || !txt) return;
+    if (aberto) {
+      dot.className = 'status-dot aberto';
+      txt.className = 'status-text aberto';
+      txt.textContent = 'Aceitando Pedidos';
+    } else {
+      dot.className = 'status-dot fechado';
+      txt.className = 'status-text fechado';
+      txt.textContent = 'Estamos fechados, mas aguardamos o seu pedido amanhã, a partir das 18h00';
+    }
+  }
+  atualizar();
+  setInterval(atualizar, 60000);
+}
+
+// ══════════════════════════════════════════
+// REVEAL + BUSCA
+// ══════════════════════════════════════════
+function initReveal() {
+  var reveals = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { reveals.forEach(function(el){ el.classList.add('visible'); }); return; }
   var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if (entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); }
-    });
+    entries.forEach(function(entry){ if (entry.isIntersecting){ entry.target.classList.add('visible'); obs.unobserve(entry.target); } });
   }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
   reveals.forEach(function(el){ obs.observe(el); });
 }
 
-// ── BUSCA ──
 function initBusca() {
   var input    = document.getElementById('search-input');
   var clearBtn = document.getElementById('search-clear');
@@ -857,9 +1309,9 @@ function initBusca() {
   input.addEventListener('input', function(){
     var q = normalize(this.value.trim());
     clearBtn.classList.toggle('visible', q.length > 0);
-    var cards    = document.querySelectorAll('.lanche-card');
+    var cards = document.querySelectorAll('.lanche-card');
     var sections = document.querySelectorAll('.section-header');
-    var count    = 0;
+    var count = 0;
     if (!q) {
       cards.forEach(function(c){ c.style.display = ''; });
       sections.forEach(function(s){ s.style.display = ''; });
@@ -879,7 +1331,6 @@ function initBusca() {
         count++;
       }
     });
-    // Mostra seções com conteúdo visível
     sections.forEach(function(section){
       var next = section.nextElementSibling;
       while (next && !next.classList.contains('section-header')) {
@@ -893,74 +1344,14 @@ function initBusca() {
     });
     if (emptyEl) emptyEl.style.display = count === 0 ? 'block' : 'none';
   });
-  clearBtn.addEventListener('click', function(){
-    input.value = '';
-    input.dispatchEvent(new Event('input'));
-    input.focus();
-  });
-}
-
-// ── ACORDEÃO ──
-function toggleAc(btn) {
-  var body = btn.nextElementSibling;
-  var open = body.classList.contains('open');
-  // Fecha todos dentro do mesmo card
-  var card = btn.closest('.lanche-card');
-  card.querySelectorAll('.lanche-acordeao-body').forEach(function(b){ b.classList.remove('open'); });
-  card.querySelectorAll('.lanche-acordeao-btn').forEach(function(b){ b.classList.remove('open'); });
-  if (!open) {
-    body.classList.add('open');
-    btn.classList.add('open');
-  }
-}
-
-// ── FOTO LIGHTBOX ──
-function abrirFoto(src, nome) {
-  var img = document.getElementById('foto-lightbox-img');
-  var nomeEl = document.getElementById('foto-nome');
-  img.src = src;
-  if (nomeEl) nomeEl.textContent = nome || '';
-  document.getElementById('foto-overlay').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
-
-function fecharFoto(e) {
-  if (e && e.target !== document.getElementById('foto-overlay') && !e.target.closest('.foto-close')) return;
-  document.getElementById('foto-overlay').classList.remove('active');
-  document.getElementById('foto-lightbox-img').src = '';
-  document.body.style.overflow = '';
-}
-
-document.addEventListener('keydown', function(e){
-  if (e.key === 'Escape') fecharFoto();
-});
-
-// ── STATUS ──
-function initStatus() {
-  function atualizar() {
-    var hora   = new Date().getHours();
-    var aberto = (hora >= 18 && hora < 24);
-    var dot  = document.getElementById('status-dot');
-    var txt  = document.getElementById('status-text');
-    if (!dot || !txt) return;
-    if (aberto) {
-      dot.className = 'status-dot aberto';
-      txt.className = 'status-text aberto';
-      txt.textContent = 'Aceitando Pedidos';
-    } else {
-      dot.className = 'status-dot fechado';
-      txt.className = 'status-text fechado';
-      txt.textContent = 'Estamos fechados, mas aguardamos o seu pedido amanhã, a partir das 18h00';
-    }
-  }
-  atualizar();
-  setInterval(atualizar, 60000);
+  clearBtn.addEventListener('click', function(){ input.value = ''; input.dispatchEvent(new Event('input')); input.focus(); });
 }
 
 window.addEventListener('load', function(){
   setTimeout(initReveal, 80);
   initBusca();
   initStatus();
+  renderCarrinho();
 });
 </script>
 </body>
