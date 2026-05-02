@@ -1089,8 +1089,126 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       </div>
     </div>
 
+    <!-- ── Frango Empanado Crocante ── -->
+    <div class="lanche-card" data-id="frango" data-nome="Frango Empanado Crocante" data-preco="35.90">
+      <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1oeAGO-nVqzzi5tPWiLLHHk5lQvsivvLf=s1600','Frango Empanado Crocante')">
+        <img class="lanche-foto"
+          src="https://lh3.googleusercontent.com/d/1oeAGO-nVqzzi5tPWiLLHHk5lQvsivvLf=s600"
+          alt="Frango Empanado Crocante" loading="lazy">
+        <div class="lanche-foto-overlay">
+          <div class="lanche-zoom-hint">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="lanche-body">
+        <h3 class="lanche-nome">Frango Empanado Crocante</h3>
+        <ul class="lanche-ingredientes">
+          <li>Pão brioche amanteigado</li>
+          <li>Filé de frango empanado extra crocante</li>
+          <li>Alface americana fresca</li>
+          <li>Tomate italiano</li>
+          <li>Cebola branca</li>
+          <li>Molho cremoso levemente picante</li>
+          <li>Temperos especiais crocantes</li>
+          <li>Maionese artesanal da casa</li>
+        </ul>
+      </div>
+
+      <!-- Adicionar ingredientes -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
+          Adicionar ingredientes
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
+              <span class="lanche-ac-preco">+ R$ 4,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
+              <span class="lanche-ac-preco">+ R$ 3,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
+              <span class="lanche-ac-preco">+ R$ 2,50</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Molho extra picante" data-preco="2.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Molho extra picante</span></label>
+              <span class="lanche-ac-preco">+ R$ 2,00</span>
+            </li>
+            <li class="lanche-ac-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
+              <span class="lanche-ac-preco">+ R$ 5,00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Retirar ingredientes -->
+      <div class="lanche-acordeao">
+        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
+          Retirar ingredientes
+          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </button>
+        <div class="lanche-acordeao-body">
+          <ul class="lanche-ac-lista">
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Alface"><span class="lanche-ac-nome">Alface</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Tomate"><span class="lanche-ac-nome">Tomate</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola"><span class="lanche-ac-nome">Cebola</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Molho cremoso picante"><span class="lanche-ac-nome">Molho cremoso picante</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+            <li class="lanche-ac-item rem-item">
+              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Maionese"><span class="lanche-ac-nome">Maionese</span></label>
+              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Observações -->
+      <div class="lanche-obs-wrap">
+        <label class="lanche-obs-label">Observações</label>
+        <textarea class="lanche-obs" placeholder="Ex: molho à parte, sem tempero..."></textarea>
+      </div>
+
+      <!-- Preço + Quantidade + Adicionar -->
+      <div class="lanche-add-pedido-wrap">
+        <div class="lanche-preco-base">
+          <span class="lanche-preco-label">Total</span>
+          <div class="lanche-preco-valor"><span>R$ </span><span class="preco-display">35,90</span></div>
+        </div>
+        <div class="lanche-qty-wrap">
+          <button class="qty-btn" onclick="alterarQty(this,-1)">−</button>
+          <span class="qty-display">1</span>
+          <button class="qty-btn" onclick="alterarQty(this,1)">+</button>
+        </div>
+        <button class="btn-add-pedido" onclick="adicionarAoPedido(this)">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Adicionar
+        </button>
+      </div>
+    </div>
+
   </div>
-  <div class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Porções</p></div>
     <div class="section-header-line"></div>
   </div>
