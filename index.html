@@ -981,9 +981,10 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   position:sticky;
   top:0;
   z-index:100;
-  background:transparent;
+  background:#000000;
   margin:0 -36px;
   padding:0 36px;
+  margin-top:-28px;
 }
 .sticky-nav-inner{
   display:flex;align-items:center;justify-content:center;gap:0;
@@ -992,6 +993,27 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   -ms-overflow-style:none;
 }
 .sticky-nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  flex-shrink:0;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,0.6);
+  padding:18px 22px;
+  position:relative;
+  transition:color 0.3s ease;
+  white-space:nowrap;
+}
+.nav-btn::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);
+  transform:scaleX(0);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-btn:hover{color:#ffffff}
+.nav-btn.active{color:#ffffff}
+.nav-btn.active::after{transform:scaleX(1)}
 .nav-btn{
   flex-shrink:0;
   background:none;border:none;cursor:pointer;
@@ -1536,8 +1558,8 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
     <!-- Guaraná Refil -->
     <div class="lanche-card" data-id="guarana" data-nome="Guaraná (Refil)" data-preco="9.90">
-      <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1odomGlAfX_D6c5pcnV1pmVHoQCKliVUm=s1600','Guaraná Refil')">
-        <img class="lanche-foto" src="https://lh3.googleusercontent.com/d/1odomGlAfX_D6c5pcnV1pmVHoQCKliVUm=s600" alt="Guaraná" loading="lazy">
+      <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1UjgD_k2LY4DIiNAw65DfZY0pmWHo7u36=s1600','Guaraná Refil')">
+        <img class="lanche-foto" src="https://lh3.googleusercontent.com/d/1UjgD_k2LY4DIiNAw65DfZY0pmWHo7u36=s600" alt="Guaraná" loading="lazy">
         <div class="lanche-foto-overlay"><div class="lanche-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div></div>
       </div>
       <div class="lanche-body"><h3 class="lanche-nome">Guaraná <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted)">(Refil)</span></h3></div>
@@ -2136,7 +2158,7 @@ document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fechar
 function initStatus() {
   function atualizar() {
     var hora = new Date().getHours();
-    var aberto = (hora >= 18 && hora < 24);
+    var aberto = (hora >= 18 && hora < 24) || hora < 2;
     var dot = document.getElementById('status-dot');
     var txt = document.getElementById('status-text');
     if (!dot || !txt) return;
@@ -2147,7 +2169,7 @@ function initStatus() {
     } else {
       dot.className = 'status-dot fechado';
       txt.className = 'status-text fechado';
-      txt.textContent = 'Estamos fechados, mas aguardamos o seu pedido amanhã, a partir das 18h00';
+      txt.textContent = 'Estamos fechados, mas aguardamos o seu pedido hoje, a partir das 18h00';
     }
   }
   atualizar();
