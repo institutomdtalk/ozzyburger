@@ -884,34 +884,28 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
   opacity:0;
 }
-.troco-wrap.visible{max-height:120px;opacity:1}
+.troco-wrap.visible{max-height:300px;opacity:1}
 .troco-inner{
-  display:flex;flex-direction:column;gap:6px;
-  padding:14px 16px;
+  display:flex;flex-direction:column;gap:10px;
+  padding:16px 18px;
   border:1.5px dashed rgba(196,164,90,0.4);
   border-radius:var(--radius);
   background:var(--cream);
   margin-top:4px;
 }
-.troco-pergunta{
-  display:flex;align-items:center;gap:10px;
-  cursor:pointer;
-}
-.troco-pergunta input[type=checkbox]{
-  width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;
-}
-.troco-pergunta-label{
-  font-size:13px;font-weight:600;color:var(--navy);
-}
+.troco-sim-nao{display:flex;flex-direction:column;gap:8px}
 .troco-valor-wrap{
   max-height:0;overflow:hidden;
   transition:max-height 0.3s ease, opacity 0.3s ease;opacity:0;
 }
-.troco-valor-wrap.visible{max-height:60px;opacity:1}
-.troco-input-row{display:flex;align-items:center;gap:10px;padding-top:8px}
+.troco-valor-wrap.visible{max-height:80px;opacity:1}
+.troco-input-row{
+  display:flex;align-items:center;gap:10px;
+  padding-top:4px;
+}
 .troco-prefix{
-  font-family:var(--serif);font-size:1rem;font-weight:600;
-  color:var(--text-muted);flex-shrink:0;
+  font-family:var(--sans);font-size:12px;font-weight:700;
+  color:var(--text-muted);flex-shrink:0;white-space:nowrap;
 }
 .troco-input{
   flex:1;border:1px solid var(--border);border-radius:var(--radius);
@@ -1778,14 +1772,21 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       <!-- Troco (aparece ao selecionar dinheiro) -->
       <div class="troco-wrap" id="troco-wrap">
         <div class="troco-inner">
-          <label class="troco-pergunta">
-            <input type="checkbox" id="precisa-troco" onchange="toggleTroco(this)">
-            <span class="troco-pergunta-label">Precisa de troco?</span>
-          </label>
+          <span class="pgto-selector-label" style="margin-bottom:10px">Precisa de troco?</span>
+          <div class="troco-sim-nao">
+            <div class="pgto-opcao" id="troco-nao" onclick="selecionarTroco(false)">
+              <div class="pgto-radio"></div>
+              <span class="pgto-opcao-nome">Não preciso de troco</span>
+            </div>
+            <div class="pgto-opcao" id="troco-sim" onclick="selecionarTroco(true)">
+              <div class="pgto-radio"></div>
+              <span class="pgto-opcao-nome">Sim, preciso de troco</span>
+            </div>
+          </div>
           <div class="troco-valor-wrap" id="troco-valor-wrap">
             <div class="troco-input-row">
-              <span class="troco-prefix">R$</span>
-              <input class="troco-input" id="troco-valor" type="number" min="0" step="0.01" placeholder="Ex: 100,00">
+              <span class="troco-prefix">Troco para R$</span>
+              <input class="troco-input" id="troco-valor" type="number" min="0" step="0.01" placeholder="0,00" oninput="verificarFormulario()">
             </div>
           </div>
         </div>
@@ -1981,6 +1982,7 @@ function adicionarAoPedido(btn) {
 
   renderCarrinho();
   mostrarCarrinho();
+  verificarFormulario();
 }
 
 function renderCarrinho() {
@@ -2117,51 +2119,115 @@ function selecionarPgto(el, forma) {
   document.querySelectorAll('.pgto-opcao').forEach(function(o){ o.classList.remove('selected'); });
   el.classList.add('selected');
   _formaPgto = forma;
+  verificarFormulario();
 
   var trocoWrap = document.getElementById('troco-wrap');
   if (forma === 'dinheiro') {
     trocoWrap.classList.add('visible');
   } else {
     trocoWrap.classList.remove('visible');
-    document.getElementById('precisa-troco').checked = false;
+    _troco = null;
+    document.getElementById('troco-sim').classList.remove('selected');
+    document.getElementById('troco-nao').classList.remove('selected');
     document.getElementById('troco-valor-wrap').classList.remove('visible');
     document.getElementById('troco-valor').value = '';
   }
 }
 
-function toggleTroco(cb) {
-  var wrap = document.getElementById('troco-valor-wrap');
-  wrap.classList.toggle('visible', cb.checked);
-  if (!cb.checked) document.getElementById('troco-valor').value = '';
+var _troco = null; // null = não respondido, false = não precisa, true = precisa
+
+function selecionarTroco(precisaTroco) {
+  _troco = precisaTroco;
+  document.getElementById('troco-sim').classList.toggle('selected', precisaTroco);
+  document.getElementById('troco-nao').classList.toggle('selected', !precisaTroco);
+  var valorWrap = document.getElementById('troco-valor-wrap');
+  valorWrap.classList.toggle('visible', precisaTroco);
+  if (!precisaTroco) document.getElementById('troco-valor').value = '';
+  verificarFormulario();
 }
 
 // ══════════════════════════════════════════
-// REALIZAR PEDIDO — botão principal
+// REALIZAR PEDIDO — validação completa
 // ══════════════════════════════════════════
-function realizarPedido() {
-  // Validação mínima
+function formularioValido() {
   var nome   = (document.getElementById('cliente-nome')   || {}).value || '';
   var tel    = (document.getElementById('cliente-tel')    || {}).value || '';
+  var end    = (document.getElementById('cliente-end')    || {}).value || '';
+  var num    = (document.getElementById('cliente-num')    || {}).value || '';
+  var bairro = (document.getElementById('cliente-bairro') || {}).value || '';
+  if (!_carrinho.length)    return false;
+  if (!nome.trim())         return false;
+  if (!tel.trim())          return false;
+  if (!end.trim())          return false;
+  if (!num.trim())          return false;
+  if (!bairro.trim())       return false;
+  if (!_formaPgto)          return false;
+  // Se dinheiro: precisa ter respondido troco
+  if (_formaPgto === 'dinheiro') {
+    if (_troco === null) return false;
+    // Se respondeu sim: precisa do valor
+    if (_troco === true) {
+      var val = (document.getElementById('troco-valor') || {}).value || '';
+      if (!val || parseFloat(val) <= 0) return false;
+    }
+  }
+  return true;
+}
 
-  if (!_carrinho.length) {
-    showToast('Adicione pelo menos um item ao pedido.', 'error');
-    document.querySelector('.lanche-grid').scrollIntoView({behavior:'smooth', block:'start'});
-    return;
-  }
-  if (!nome.trim()) {
-    showToast('Preencha seu nome antes de continuar.', 'error');
-    document.getElementById('cliente-nome').focus();
-    document.getElementById('cliente-nome').scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
-  if (!tel.trim()) {
-    showToast('Preencha seu número de contato.', 'error');
-    document.getElementById('cliente-tel').focus();
-    document.getElementById('cliente-tel').scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
+function verificarFormulario() {
+  var btn = document.getElementById('btn-finalizar');
+  if (!btn) return;
+  var ok = formularioValido();
+  btn.disabled = !ok;
+  btn.style.opacity  = ok ? '1'     : '0.4';
+  btn.style.animation = ok ? ''     : 'none';
+  btn.style.cursor   = ok ? 'pointer' : 'not-allowed';
+}
 
-  // Reutiliza enviarWhatsApp que já faz Sheets + WhatsApp
+function realizarPedido() {
+  if (!formularioValido()) {
+    // Identifica o primeiro campo vazio e rola até ele
+    if (!_carrinho.length) {
+      showToast('Adicione pelo menos um item ao pedido.', 'error');
+      document.querySelector('.lanche-grid').scrollIntoView({behavior:'smooth', block:'start'});
+      return;
+    }
+    var campos = [
+      { id:'cliente-nome',   msg:'Preencha seu nome.' },
+      { id:'cliente-tel',    msg:'Preencha seu número para contato.' },
+      { id:'cliente-end',    msg:'Preencha o endereço de entrega.' },
+      { id:'cliente-num',    msg:'Preencha o número do endereço.' },
+      { id:'cliente-bairro', msg:'Preencha o bairro.' }
+    ];
+    for (var i = 0; i < campos.length; i++) {
+      var el = document.getElementById(campos[i].id);
+      if (el && !el.value.trim()) {
+        showToast(campos[i].msg, 'error');
+        el.focus();
+        el.scrollIntoView({behavior:'smooth', block:'center'});
+        return;
+      }
+    }
+    if (!_formaPgto) {
+      showToast('Selecione a forma de pagamento.', 'error');
+      document.querySelector('.pgto-selector').scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+    if (_formaPgto === 'dinheiro' && _troco === null) {
+      showToast('Informe se precisa de troco.', 'error');
+      document.getElementById('troco-wrap').scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+    if (_formaPgto === 'dinheiro' && _troco === true) {
+      var tv = (document.getElementById('troco-valor') || {}).value || '';
+      if (!tv || parseFloat(tv) <= 0) {
+        showToast('Informe o valor para o troco.', 'error');
+        document.getElementById('troco-valor').focus();
+        return;
+      }
+    }
+    return;
+  }
   enviarWhatsApp();
 }
 
@@ -2239,12 +2305,9 @@ function enviarWhatsApp() {
   if (_formaPgto) {
     linhas.push('💳 *Pagamento:* ' + (pgtoLabel[_formaPgto] || _formaPgto));
     if (_formaPgto === 'dinheiro') {
-      var precisaTroco = document.getElementById('precisa-troco') && document.getElementById('precisa-troco').checked;
-      var trocoVal = document.getElementById('troco-valor') ? document.getElementById('troco-valor').value.trim() : '';
-      if (precisaTroco && trocoVal) {
+      if (_troco === true) {
+        var trocoVal = document.getElementById('troco-valor') ? document.getElementById('troco-valor').value.trim() : '';
         linhas.push('💵 *Troco para:* R$ ' + parseFloat(trocoVal).toFixed(2).replace('.',','));
-      } else if (precisaTroco) {
-        linhas.push('💵 *Troco:* Sim (valor não informado)');
       } else {
         linhas.push('💵 *Troco:* Não precisa');
       }
@@ -2410,6 +2473,17 @@ window.addEventListener('load', function(){
   initStatus();
   renderCarrinho();
   initScrollSpy();
+
+  // Botão começa desabilitado
+  var btn = document.getElementById('btn-finalizar');
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.4'; btn.style.animation = 'none'; btn.style.cursor = 'not-allowed'; }
+
+  // Ouve todos os campos do formulário
+  var campos = ['cliente-nome','cliente-tel','cliente-end','cliente-num','cliente-bairro'];
+  campos.forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('input', verificarFormulario);
+  });
 });
 </script>
 </body>
