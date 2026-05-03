@@ -824,6 +824,107 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:var(--white);padding:13px 28px;border-radius:var(--radius);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.5px;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.22,1,0.36,1);z-index:200;white-space:nowrap;box-shadow:var(--shadow-lg);border-left:2px solid var(--gold)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* ═══ FORMA DE PAGAMENTO — SELETOR ═══ */
+.pgto-selector{
+  grid-column:1/-1;
+  margin-bottom:4px;
+}
+.pgto-selector-label{
+  font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:12px;display:block;
+}
+.pgto-opcoes{display:flex;flex-direction:column;gap:8px}
+.pgto-opcao{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-radius:var(--radius);
+  border:1.5px solid var(--border);background:var(--cream);
+  cursor:pointer;transition:all 0.25s ease;
+  user-select:none;
+}
+.pgto-opcao:hover{border-color:var(--border-gold);background:var(--white)}
+.pgto-opcao.selected{
+  border-color:var(--gold);background:var(--white);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.1);
+}
+.pgto-radio{
+  width:18px;height:18px;border-radius:50%;
+  border:2px solid var(--border);background:var(--white);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s ease;
+}
+.pgto-opcao.selected .pgto-radio{
+  border-color:var(--gold);background:var(--gold);
+}
+.pgto-radio::after{
+  content:'';width:7px;height:7px;border-radius:50%;
+  background:var(--navy-deep);
+  opacity:0;transform:scale(0);
+  transition:all 0.2s ease;
+}
+.pgto-opcao.selected .pgto-radio::after{opacity:1;transform:scale(1)}
+.pgto-opcao-icon{
+  width:32px;height:32px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--off-white);border:1px solid var(--border);
+  transition:all 0.25s ease;
+}
+.pgto-opcao.selected .pgto-opcao-icon{background:var(--gold-faint);border-color:var(--border-gold)}
+.pgto-opcao-icon svg{width:15px;height:15px;fill:none;stroke:var(--text-muted);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
+.pgto-opcao.selected .pgto-opcao-icon svg{stroke:var(--gold)}
+.pgto-opcao-nome{
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  color:var(--navy);flex:1;
+}
+
+/* Troco */
+.troco-wrap{
+  grid-column:1/-1;
+  overflow:hidden;
+  max-height:0;
+  transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.3s ease;
+  opacity:0;
+}
+.troco-wrap.visible{max-height:120px;opacity:1}
+.troco-inner{
+  display:flex;flex-direction:column;gap:6px;
+  padding:14px 16px;
+  border:1.5px dashed rgba(196,164,90,0.4);
+  border-radius:var(--radius);
+  background:var(--cream);
+  margin-top:4px;
+}
+.troco-pergunta{
+  display:flex;align-items:center;gap:10px;
+  cursor:pointer;
+}
+.troco-pergunta input[type=checkbox]{
+  width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;
+}
+.troco-pergunta-label{
+  font-size:13px;font-weight:600;color:var(--navy);
+}
+.troco-valor-wrap{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.3s ease, opacity 0.3s ease;opacity:0;
+}
+.troco-valor-wrap.visible{max-height:60px;opacity:1}
+.troco-input-row{display:flex;align-items:center;gap:10px;padding-top:8px}
+.troco-prefix{
+  font-family:var(--serif);font-size:1rem;font-weight:600;
+  color:var(--text-muted);flex-shrink:0;
+}
+.troco-input{
+  flex:1;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--white);font-family:var(--sans);font-size:14px;
+  color:var(--text-body);padding:9px 12px;outline:none;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.troco-input:focus{
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+}
+.troco-input::placeholder{color:rgba(107,101,96,0.4)}
+
 /* ═══ CHECKOUT — DADOS DO CLIENTE ═══ */
 .checkout-section{
   grid-column:1/-1;
@@ -1642,6 +1743,54 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
         <input class="form-input" id="cliente-bairro" type="text" placeholder="Seu bairro" autocomplete="off">
       </div>
 
+      <!-- Forma de pagamento — seletor -->
+      <div class="pgto-selector">
+        <label class="pgto-selector-label">Forma de pagamento</label>
+        <div class="pgto-opcoes">
+
+          <div class="pgto-opcao" onclick="selecionarPgto(this,'pix')">
+            <div class="pgto-radio"></div>
+            <div class="pgto-opcao-icon">
+              <svg viewBox="0 0 512 512"><path d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.7 369.7C350.3 380.3 364.6 386.2 379.6 386.2H394.2L313.3 467.1C288.6 491.8 248.5 491.8 223.8 467.1L142.5 385.8H157.4C172.4 385.8 186.7 379.9 197.3 369.3L242.4 292.5zM313.3 44.97L394.2 125.8H379.6C364.6 125.8 350.3 131.7 339.7 142.3L262.5 219.5C257.1 224.9 247.8 224.9 242.4 219.5L197.3 142.7C186.7 132.1 172.4 126.2 157.4 126.2H142.5L223.8 44.97C248.5 20.27 288.6 20.27 313.3 44.97zM112.4 143.4H157.4C163.6 143.4 169.5 146.1 173.7 150.3L230.5 207.1C242.4 218.1 261.6 218.1 273.5 207.1L330.3 150.3C334.5 146.1 340.4 143.4 346.6 143.4H391.6L441 192.8C465.7 217.5 465.7 257.6 441 282.3L391.6 331.7H346.6C340.4 331.7 334.5 329 330.3 324.8L273.5 268C261.6 257 242.4 257 230.5 268L173.7 324.8C169.5 329 163.6 331.7 157.4 331.7H112.4L63.07 282.3C38.37 257.6 38.37 217.5 63.07 192.8L112.4 143.4z" fill="currentColor"/></svg>
+            </div>
+            <span class="pgto-opcao-nome">Pix</span>
+          </div>
+
+          <div class="pgto-opcao" onclick="selecionarPgto(this,'cartao')">
+            <div class="pgto-radio"></div>
+            <div class="pgto-opcao-icon">
+              <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <span class="pgto-opcao-nome">Cartão de crédito / débito</span>
+          </div>
+
+          <div class="pgto-opcao" onclick="selecionarPgto(this,'dinheiro')">
+            <div class="pgto-radio"></div>
+            <div class="pgto-opcao-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M6 12h.01M18 12h.01"/></svg>
+            </div>
+            <span class="pgto-opcao-nome">Dinheiro</span>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Troco (aparece ao selecionar dinheiro) -->
+      <div class="troco-wrap" id="troco-wrap">
+        <div class="troco-inner">
+          <label class="troco-pergunta">
+            <input type="checkbox" id="precisa-troco" onchange="toggleTroco(this)">
+            <span class="troco-pergunta-label">Precisa de troco?</span>
+          </label>
+          <div class="troco-valor-wrap" id="troco-valor-wrap">
+            <div class="troco-input-row">
+              <span class="troco-prefix">R$</span>
+              <input class="troco-input" id="troco-valor" type="number" min="0" step="0.01" placeholder="Ex: 100,00">
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Pagamento -->
       <div class="pagamento-wrap">
 
@@ -1960,6 +2109,33 @@ function initScrollSpy() {
 }
 
 // ══════════════════════════════════════════
+// FORMA DE PAGAMENTO
+// ══════════════════════════════════════════
+var _formaPgto = '';
+
+function selecionarPgto(el, forma) {
+  document.querySelectorAll('.pgto-opcao').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+  _formaPgto = forma;
+
+  var trocoWrap = document.getElementById('troco-wrap');
+  if (forma === 'dinheiro') {
+    trocoWrap.classList.add('visible');
+  } else {
+    trocoWrap.classList.remove('visible');
+    document.getElementById('precisa-troco').checked = false;
+    document.getElementById('troco-valor-wrap').classList.remove('visible');
+    document.getElementById('troco-valor').value = '';
+  }
+}
+
+function toggleTroco(cb) {
+  var wrap = document.getElementById('troco-valor-wrap');
+  wrap.classList.toggle('visible', cb.checked);
+  if (!cb.checked) document.getElementById('troco-valor').value = '';
+}
+
+// ══════════════════════════════════════════
 // REALIZAR PEDIDO — botão principal
 // ══════════════════════════════════════════
 function realizarPedido() {
@@ -2057,6 +2233,23 @@ function enviarWhatsApp() {
   });
   linhas.push('━━━━━━━━━━━━━━━━━━');
   linhas.push('💰 *TOTAL: ' + fmt(soma) + '*');
+
+  // Forma de pagamento
+  var pgtoLabel = { pix: 'Pix', cartao: 'Cartão de crédito / débito', dinheiro: 'Dinheiro' };
+  if (_formaPgto) {
+    linhas.push('💳 *Pagamento:* ' + (pgtoLabel[_formaPgto] || _formaPgto));
+    if (_formaPgto === 'dinheiro') {
+      var precisaTroco = document.getElementById('precisa-troco') && document.getElementById('precisa-troco').checked;
+      var trocoVal = document.getElementById('troco-valor') ? document.getElementById('troco-valor').value.trim() : '';
+      if (precisaTroco && trocoVal) {
+        linhas.push('💵 *Troco para:* R$ ' + parseFloat(trocoVal).toFixed(2).replace('.',','));
+      } else if (precisaTroco) {
+        linhas.push('💵 *Troco:* Sim (valor não informado)');
+      } else {
+        linhas.push('💵 *Troco:* Não precisa');
+      }
+    }
+  }
   var msg    = linhas.join('\n');
   var numero = '5514997758941';
   var waUrl  = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(msg);
