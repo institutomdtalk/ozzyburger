@@ -400,149 +400,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   opacity:0.5;flex-shrink:0;animation:geoPulse 4s ease-in-out infinite;
 }
 
-/* ═══ CHECKOUT ═══ */
-.checkout-section{
-  grid-column:1/-1;
-  background:var(--white);
-  border:1px solid var(--border);
-  border-radius:8px;
-  box-shadow:var(--shadow-sm);
-  overflow:hidden;
-  position:relative;
-}
-.checkout-section::before{
-  content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--gold),transparent);
-}
-.checkout-header{
-  padding:24px 28px 0;
-}
-.checkout-overline{
-  font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);margin-bottom:8px;display:block;
-}
-.checkout-title{
-  font-family:var(--serif);font-size:1.6rem;font-weight:400;
-  color:var(--navy);line-height:1.2;margin-bottom:20px;
-}
-
-/* Campos */
-.checkout-fields{
-  padding:0 28px 24px;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-}
-.field-wrap{display:flex;flex-direction:column;gap:5px}
-.field-wrap.full{grid-column:1/-1}
-.field-lbl{
-  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:var(--text-muted);
-}
-.field-inp{
-  border:1px solid var(--border);border-radius:var(--radius);
-  background:var(--cream);
-  font-family:var(--sans);font-size:13px;color:var(--text-body);
-  padding:10px 13px;outline:none;
-  transition:border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.field-inp:focus{
-  border-color:rgba(196,164,90,0.5);
-  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
-}
-.field-inp::placeholder{color:rgba(107,101,96,0.35)}
-
-/* Pagamento */
-.checkout-payment{
-  padding:0 28px 28px;
-  border-top:1px solid var(--border);
-  margin-top:0;
-}
-.checkout-payment-title{
-  font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
-  color:var(--gold);padding:18px 0 14px;display:block;
-}
-.payment-options{
-  display:grid;grid-template-columns:1fr 1fr;gap:14px;
-}
-
-/* Pix card */
-.pix-card{
-  border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;background:var(--off-white);
-  position:relative;overflow:hidden;
-  transition:border-color 0.3s ease;
-}
-.pix-card::before{
-  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
-  background:#32BCAD;border-radius:3px 0 0 3px;
-}
-.pix-card:hover{border-color:rgba(50,188,173,0.4)}
-.pix-label{
-  display:flex;align-items:center;gap:8px;
-  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:#32BCAD;margin-bottom:8px;
-}
-.pix-label svg{width:16px;height:16px;fill:#32BCAD;flex-shrink:0}
-.pix-chave-label{font-size:10px;color:var(--text-muted);margin-bottom:4px}
-.pix-chave{
-  font-family:'Courier New',monospace;font-size:13px;
-  font-weight:700;color:var(--navy);
-  background:var(--white);border:1px solid var(--border);
-  border-radius:var(--radius);padding:8px 12px;
-  display:flex;align-items:center;justify-content:space-between;gap:8px;
-  margin-bottom:10px;
-}
-.pix-chave span{flex:1;word-break:break-all;line-height:1.4}
-.btn-copiar-pix{
-  flex-shrink:0;
-  background:var(--navy);color:var(--white);
-  font-family:var(--sans);font-size:9px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  padding:6px 12px;border-radius:var(--radius);border:none;
-  cursor:pointer;transition:all 0.3s ease;white-space:nowrap;
-}
-.btn-copiar-pix:hover{background:var(--navy-light)}
-.btn-copiar-pix.copiado{background:#2D6A4F}
-
-/* Cartão card */
-.cartao-card{
-  border:1px solid var(--border);border-radius:var(--radius);
-  padding:18px;background:var(--off-white);
-  display:flex;flex-direction:column;justify-content:space-between;
-  position:relative;overflow:hidden;
-  transition:border-color 0.3s ease;
-}
-.cartao-card::before{
-  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,#667eea,#764ba2);border-radius:3px 0 0 3px;
-}
-.cartao-card:hover{border-color:rgba(102,126,234,0.4)}
-.cartao-label{
-  display:flex;align-items:center;gap:8px;
-  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
-  color:#667eea;margin-bottom:8px;
-}
-.cartao-label svg{width:16px;height:16px;stroke:#667eea;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-.cartao-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:14px;flex:1}
-.btn-cartao{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:#fff;font-family:var(--sans);font-size:10px;font-weight:700;
-  letter-spacing:1.5px;text-transform:uppercase;
-  padding:11px 20px;border-radius:var(--radius);border:none;
-  cursor:pointer;transition:all 0.3s ease;
-  box-shadow:0 4px 14px rgba(102,126,234,0.3);
-}
-.btn-cartao:hover{box-shadow:0 6px 20px rgba(102,126,234,0.45);transform:translateY(-1px)}
-.btn-cartao:disabled{opacity:0.5;cursor:not-allowed;transform:none}
-.btn-cartao svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-
-@media(max-width:768px){
-  .checkout-fields{grid-template-columns:1fr}
-  .payment-options{grid-template-columns:1fr}
-  .checkout-header,.checkout-fields,.checkout-payment{padding-left:18px;padding-right:18px}
-}
 .footer{background:var(--navy-deep);text-align:center;padding:44px 24px;position:relative}
 .footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.25}
 .footer-brand{font-family:var(--serif);font-size:1.15rem;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
@@ -1416,93 +1273,6 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
   </div>
 
-  <!-- ══ FINALIZAR PEDIDO ══ -->
-  <div class="checkout-section reveal">
-    <div class="checkout-header">
-      <span class="checkout-overline">Finalizar Pedido</span>
-      <h2 class="checkout-title">Seus dados de entrega</h2>
-    </div>
-
-    <div class="checkout-fields">
-      <div class="field-wrap full">
-        <label class="field-lbl">Nome completo</label>
-        <input class="field-inp" id="cli-nome" type="text" placeholder="Seu nome">
-      </div>
-      <div class="field-wrap">
-        <label class="field-lbl">Número para contato</label>
-        <input class="field-inp" id="cli-tel" type="tel" placeholder="(00) 00000-0000">
-      </div>
-      <div class="field-wrap">
-        <label class="field-lbl">Bairro</label>
-        <input class="field-inp" id="cli-bairro" type="text" placeholder="Seu bairro">
-      </div>
-      <div class="field-wrap">
-        <label class="field-lbl">Endereço</label>
-        <input class="field-inp" id="cli-endereco" type="text" placeholder="Rua, Avenida...">
-      </div>
-      <div class="field-wrap">
-        <label class="field-lbl">Número</label>
-        <input class="field-inp" id="cli-numero" type="text" placeholder="Nº">
-      </div>
-    </div>
-
-    <div class="checkout-payment">
-      <span class="checkout-payment-title">Forma de pagamento</span>
-      <div class="payment-options">
-
-        <!-- PIX -->
-        <div class="pix-card">
-          <div class="pix-label">
-            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.7 369.7C350.3 380.3 364.6 386.2 379.6 386.2H394.2L313.3 467.1C288.6 491.8 248.5 491.8 223.8 467.1L142.5 385.8H157.4C172.4 385.8 186.7 379.9 197.3 369.3L242.4 292.5zM313.3 44.97L394.2 125.8H379.6C364.6 125.8 350.3 131.7 339.7 142.3L262.5 219.5C257.1 224.9 247.8 224.9 242.4 219.5L197.3 142.7C186.7 132.1 172.4 126.2 157.4 126.2H142.5L223.8 44.97C248.5 20.27 288.6 20.27 313.3 44.97zM112.4 143.4H157.4C163.6 143.4 169.5 146.1 173.7 150.3L230.5 207.1C242.4 218.1 261.6 218.1 273.5 207.1L330.3 150.3C334.5 146.1 340.4 143.4 346.6 143.4H391.6L441 192.8C465.7 217.5 465.7 257.6 441 282.3L391.6 331.7H346.6C340.4 331.7 334.5 329 330.3 324.8L273.5 268C261.6 257 242.4 257 230.5 268L173.7 324.8C169.5 329 163.6 331.7 157.4 331.7H112.4L63.07 282.3C38.37 257.6 38.37 217.5 63.07 192.8L112.4 143.4z"/></svg>
-            Pagar com Pix
-          </div>
-          <p class="pix-chave-label">Chave CPF:</p>
-          <div class="pix-chave">
-            <span id="pix-key-txt">152.345.568-89</span>
-            <button class="btn-copiar-pix" id="btn-pix-copy" onclick="copiarPix()">Copiar</button>
-          </div>
-          <p style="font-size:11px;color:var(--text-muted);line-height:1.5">Após o pagamento, envie o comprovante pelo WhatsApp junto com seu pedido.</p>
-        </div>
-
-        <!-- CARTÃO -->
-        <div class="cartao-card">
-          <div class="cartao-label">
-            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            Cartão de crédito
-          </div>
-          <p class="cartao-desc">Pague com cartão de crédito de forma rápida e segura. Você será redirecionado para o ambiente de pagamento.</p>
-          <button class="btn-cartao" id="btn-cartao" onclick="acessarCartao()" disabled>
-            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Em breve
-          </button>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <div class="ornament reveal">
-    <div class="ornament-line"></div>
-    <div class="ornament-diamond"></div>
-    <div class="ornament-line"></div>
-  </div>
-
-  <!-- CONTATO -->
-  <div class="contact-strip reveal">
-    <a href="#" class="contact-item">
-      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><path d="M17.5 6.5h.01"/></svg></div>
-      <div><p class="contact-item-label">Instagram</p><p class="contact-item-value">@ozzyburger</p></div>
-    </a>
-    <a href="#" class="contact-item">
-      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-      <div><p class="contact-item-label">E-mail</p><p class="contact-item-value">contato@ozzyburger.com</p></div>
-    </a>
-    <a href="#" class="contact-item">
-      <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-      <div><p class="contact-item-label">WhatsApp</p><p class="contact-item-value">Fazer pedido</p></div>
-    </a>
-  </div>
-
   <!-- ══ DADOS DO CLIENTE + PAGAMENTO ══ -->
   <div class="section-header reveal" style="grid-column:1/-1;margin-top:40px">
     <div><p class="section-title">Finalizar Pedido</p></div>
@@ -1799,21 +1569,61 @@ function limparCarrinho() {
   renderCarrinho();
 }
 
+// ══════════════════════════════════════════
+// CONFIGURAÇÃO — cole aqui a URL do Apps Script após implantar
+// ══════════════════════════════════════════
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwam6dLSv4prhuHyfvGeIgEkxnBADtT2Pau9eJvQVKhEzvzeSS1emJ4pNDrqB6Q8YHIgw/exec';
+
+// ══════════════════════════════════════════
+// REGISTRO NA PLANILHA
+// ══════════════════════════════════════════
+function registrarNaPlanilha(dadosPedido, onSuccess, onError) {
+  if (!APPS_SCRIPT_URL) { onSuccess && onSuccess(); return; }
+
+  var cbName = 'ozzy_cb_' + Date.now();
+  var url = APPS_SCRIPT_URL
+    + '?action=registrar'
+    + '&pedido=' + encodeURIComponent(JSON.stringify(dadosPedido))
+    + '&callback=' + cbName;
+
+  var script = document.createElement('script');
+  var done   = false;
+
+  window[cbName] = function(data) {
+    done = true; delete window[cbName];
+    if (document.body.contains(script)) document.body.removeChild(script);
+    if (data.success) { onSuccess && onSuccess(); }
+    else              { onError && onError(data.message); }
+  };
+
+  script.onerror = function() {
+    if (!done) { done = true; delete window[cbName]; onError && onError('Erro de rede'); }
+  };
+  setTimeout(function() {
+    if (!done) { done = true; delete window[cbName]; onError && onError('Timeout'); }
+  }, 12000);
+
+  script.src = url;
+  document.body.appendChild(script);
+}
+
 function enviarWhatsApp() {
   if (!_carrinho.length) return;
   var soma = _carrinho.reduce(function(acc,i){ return acc + i.preco; }, 0);
 
-  // Dados do cliente
-  var nome   = (document.getElementById('cliente-nome')   ? document.getElementById('cliente-nome').value.trim()   : '') || '—';
-  var tel    = (document.getElementById('cliente-tel')    ? document.getElementById('cliente-tel').value.trim()    : '') || '—';
-  var end    = (document.getElementById('cliente-end')    ? document.getElementById('cliente-end').value.trim()    : '') || '—';
-  var num    = (document.getElementById('cliente-num')    ? document.getElementById('cliente-num').value.trim()    : '') || '—';
-  var bairro = (document.getElementById('cliente-bairro') ? document.getElementById('cliente-bairro').value.trim() : '') || '—';
+  var cliente = {
+    nome:   document.getElementById('cliente-nome')   ? document.getElementById('cliente-nome').value.trim()   : '',
+    tel:    document.getElementById('cliente-tel')    ? document.getElementById('cliente-tel').value.trim()    : '',
+    end:    document.getElementById('cliente-end')    ? document.getElementById('cliente-end').value.trim()    : '',
+    num:    document.getElementById('cliente-num')    ? document.getElementById('cliente-num').value.trim()    : '',
+    bairro: document.getElementById('cliente-bairro') ? document.getElementById('cliente-bairro').value.trim() : ''
+  };
 
+  // Monta mensagem WhatsApp
   var linhas = ['🍔 *PEDIDO — OZZY BURGER*', ''];
-  linhas.push('👤 *Cliente:* ' + nome);
-  linhas.push('📞 *Contato:* ' + tel);
-  linhas.push('📍 *Endereço:* ' + end + ', ' + num + ' — ' + bairro);
+  linhas.push('👤 *Cliente:* ' + (cliente.nome || '—'));
+  linhas.push('📞 *Contato:* ' + (cliente.tel  || '—'));
+  linhas.push('📍 *Endereço:* ' + (cliente.end || '—') + ', ' + (cliente.num || '—') + ' — ' + (cliente.bairro || '—'));
   linhas.push('');
   linhas.push('━━━━━━━━━━━━━━━━━━');
   linhas.push('🧾 *ITENS DO PEDIDO*');
@@ -1827,9 +1637,37 @@ function enviarWhatsApp() {
   });
   linhas.push('━━━━━━━━━━━━━━━━━━');
   linhas.push('💰 *TOTAL: ' + fmt(soma) + '*');
-  var msg = linhas.join('\n');
+  var msg    = linhas.join('\n');
   var numero = '5514997758941';
-  window.open('https://wa.me/' + numero + '?text=' + encodeURIComponent(msg), '_blank');
+  var waUrl  = 'https://wa.me/' + numero + '?text=' + encodeURIComponent(msg);
+
+  // Dados para a planilha
+  var dadosPlanilha = {
+    cliente: cliente,
+    itens:   _carrinho,
+    total:   soma
+  };
+
+  // Botão de feedback enquanto registra
+  var btnWa = document.getElementById('btn-whats');
+  if (btnWa) {
+    btnWa.disabled = true;
+    btnWa.innerHTML = '<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite;margin-right:8px"></span> Registrando pedido...';
+  }
+
+  function abrirWhats() {
+    if (btnWa) {
+      btnWa.disabled = false;
+      btnWa.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;fill:currentColor;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Enviar pedido';
+    }
+    window.open(waUrl, '_blank');
+  }
+
+  // Tenta registrar na planilha; independente do resultado abre o WhatsApp
+  registrarNaPlanilha(dadosPlanilha,
+    function() { abrirWhats(); },     // sucesso
+    function() { abrirWhats(); }      // erro silencioso — abre assim mesmo
+  );
 }
 
 // ══════════════════════════════════════════
