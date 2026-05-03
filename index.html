@@ -975,6 +975,52 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   .pagamento-wrap{grid-template-columns:1fr}
 }
 
+/* ═══ STICKY NAV ═══ */
+.sticky-nav{
+  grid-column:1/-1;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--white);
+  border-bottom:1px solid var(--border);
+  box-shadow:0 2px 16px rgba(11,29,58,0.07);
+  margin:0 -36px;
+  padding:0 36px;
+}
+.sticky-nav-inner{
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+.sticky-nav-inner::-webkit-scrollbar{display:none}
+.nav-btn{
+  flex-shrink:0;
+  background:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-muted);
+  padding:18px 22px;
+  position:relative;
+  transition:color 0.3s ease;
+  white-space:nowrap;
+}
+.nav-btn::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);
+  transform:scaleX(0);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-btn:hover{color:var(--navy)}
+.nav-btn.active{color:var(--navy)}
+.nav-btn.active::after{transform:scaleX(1)}
+
+@media(max-width:768px){
+  .sticky-nav{margin:0 -18px;padding:0 18px}
+  .nav-btn{padding:16px 14px;font-size:9px;letter-spacing:1.5px}
+}
+
 /* ═══ BOTÃO FINALIZAR PEDIDO ═══ */
 .finalizar-wrap{
   grid-column:1/-1;
@@ -1067,8 +1113,19 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 <main class="dashboard">
   <div class="search-empty">Nenhum item encontrado.</div>
 
+  <!-- ══ NAV STICKY ══ -->
+  <div class="sticky-nav">
+    <div class="sticky-nav-inner">
+      <button class="nav-btn active" onclick="irPara('sec-lanches')">Lanches</button>
+      <button class="nav-btn" onclick="irPara('sec-porcoes')">Porções</button>
+      <button class="nav-btn" onclick="irPara('sec-sobremesas')">Sobremesas</button>
+      <button class="nav-btn" onclick="irPara('sec-bebidas')">Refrigerante</button>
+      <button class="nav-btn" onclick="irPara('sec-pagamento')">Pagamento</button>
+    </div>
+  </div>
+
   <!-- ══ LANCHES ══ -->
-  <div class="section-header reveal" style="grid-column:1/-1">
+  <div id="sec-lanches" class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Lanches</p></div>
     <div class="section-header-line"></div>
   </div>
@@ -1261,8 +1318,10 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   </div>
 
 
+  <div id="sec-porcoes"></div>
+
   <!-- ══ SOBREMESAS ══ -->
-  <div class="section-header reveal" style="grid-column:1/-1">
+  <div id="sec-sobremesas" class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Sobremesas</p></div>
     <div class="section-header-line"></div>
   </div>
@@ -1429,7 +1488,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   </div>
 
   <!-- ══ BEBIDAS ══ -->
-  <div class="section-header reveal" style="grid-column:1/-1">
+  <div id="sec-bebidas" class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Bebidas</p></div>
     <div class="section-header-line"></div>
   </div>
@@ -1521,7 +1580,7 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   </div>
 
   <!-- ══ DADOS DO CLIENTE + PAGAMENTO ══ -->
-  <div class="section-header reveal" style="grid-column:1/-1;margin-top:40px">
+  <div id="sec-pagamento" class="section-header reveal" style="grid-column:1/-1;margin-top:40px">
     <div><p class="section-title">Finalizar Pedido</p></div>
     <div class="section-header-line"></div>
   </div>
@@ -1831,6 +1890,59 @@ function limparCarrinho() {
 var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwam6dLSv4prhuHyfvGeIgEkxnBADtT2Pau9eJvQVKhEzvzeSS1emJ4pNDrqB6Q8YHIgw/exec';
 
 // ══════════════════════════════════════════
+// NAV STICKY — scroll e highlight
+// ══════════════════════════════════════════
+function irPara(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  // Offset pela sticky nav height (≈54px) + um respiro
+  var navH = document.querySelector('.sticky-nav') ? document.querySelector('.sticky-nav').offsetHeight : 54;
+  var top  = el.getBoundingClientRect().top + window.scrollY - navH - 8;
+  window.scrollTo({ top: top, behavior: 'smooth' });
+  setActiveNav(id);
+}
+
+function setActiveNav(id) {
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('active'); });
+  var map = {
+    'sec-lanches':    0,
+    'sec-porcoes':    1,
+    'sec-sobremesas': 2,
+    'sec-bebidas':    3,
+    'sec-pagamento':  4
+  };
+  var idx = map[id];
+  if (idx !== undefined) {
+    var btns = document.querySelectorAll('.nav-btn');
+    if (btns[idx]) btns[idx].classList.add('active');
+    // Scroll o botão para o centro da nav em mobile
+    if (btns[idx]) btns[idx].scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+  }
+}
+
+function initScrollSpy() {
+  var sections = [
+    { id:'sec-lanches',    idx:0 },
+    { id:'sec-porcoes',    idx:1 },
+    { id:'sec-sobremesas', idx:2 },
+    { id:'sec-bebidas',    idx:3 },
+    { id:'sec-pagamento',  idx:4 }
+  ];
+  var navH = 60;
+  window.addEventListener('scroll', function(){
+    var scrollY = window.scrollY + navH + 40;
+    var current = 0;
+    sections.forEach(function(s){
+      var el = document.getElementById(s.id);
+      if (el && el.offsetTop <= scrollY) current = s.idx;
+    });
+    document.querySelectorAll('.nav-btn').forEach(function(b, i){
+      b.classList.toggle('active', i === current);
+    });
+  }, { passive: true });
+}
+
+// ══════════════════════════════════════════
 // REALIZAR PEDIDO — botão principal
 // ══════════════════════════════════════════
 function realizarPedido() {
@@ -2108,6 +2220,7 @@ window.addEventListener('load', function(){
   initBusca();
   initStatus();
   renderCarrinho();
+  initScrollSpy();
 });
 </script>
 </body>
