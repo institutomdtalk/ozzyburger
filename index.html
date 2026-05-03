@@ -400,7 +400,149 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
   opacity:0.5;flex-shrink:0;animation:geoPulse 4s ease-in-out infinite;
 }
 
-/* ═══ FOOTER ═══ */
+/* ═══ CHECKOUT ═══ */
+.checkout-section{
+  grid-column:1/-1;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  position:relative;
+}
+.checkout-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.checkout-header{
+  padding:24px 28px 0;
+}
+.checkout-overline{
+  font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;display:block;
+}
+.checkout-title{
+  font-family:var(--serif);font-size:1.6rem;font-weight:400;
+  color:var(--navy);line-height:1.2;margin-bottom:20px;
+}
+
+/* Campos */
+.checkout-fields{
+  padding:0 28px 24px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.field-wrap{display:flex;flex-direction:column;gap:5px}
+.field-wrap.full{grid-column:1/-1}
+.field-lbl{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text-muted);
+}
+.field-inp{
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--cream);
+  font-family:var(--sans);font-size:13px;color:var(--text-body);
+  padding:10px 13px;outline:none;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.field-inp:focus{
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+}
+.field-inp::placeholder{color:rgba(107,101,96,0.35)}
+
+/* Pagamento */
+.checkout-payment{
+  padding:0 28px 28px;
+  border-top:1px solid var(--border);
+  margin-top:0;
+}
+.checkout-payment-title{
+  font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);padding:18px 0 14px;display:block;
+}
+.payment-options{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+}
+
+/* Pix card */
+.pix-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;background:var(--off-white);
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s ease;
+}
+.pix-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:#32BCAD;border-radius:3px 0 0 3px;
+}
+.pix-card:hover{border-color:rgba(50,188,173,0.4)}
+.pix-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#32BCAD;margin-bottom:8px;
+}
+.pix-label svg{width:16px;height:16px;fill:#32BCAD;flex-shrink:0}
+.pix-chave-label{font-size:10px;color:var(--text-muted);margin-bottom:4px}
+.pix-chave{
+  font-family:'Courier New',monospace;font-size:13px;
+  font-weight:700;color:var(--navy);
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius);padding:8px 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  margin-bottom:10px;
+}
+.pix-chave span{flex:1;word-break:break-all;line-height:1.4}
+.btn-copiar-pix{
+  flex-shrink:0;
+  background:var(--navy);color:var(--white);
+  font-family:var(--sans);font-size:9px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:6px 12px;border-radius:var(--radius);border:none;
+  cursor:pointer;transition:all 0.3s ease;white-space:nowrap;
+}
+.btn-copiar-pix:hover{background:var(--navy-light)}
+.btn-copiar-pix.copiado{background:#2D6A4F}
+
+/* Cartão card */
+.cartao-card{
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;background:var(--off-white);
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+  transition:border-color 0.3s ease;
+}
+.cartao-card::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,#667eea,#764ba2);border-radius:3px 0 0 3px;
+}
+.cartao-card:hover{border-color:rgba(102,126,234,0.4)}
+.cartao-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:#667eea;margin-bottom:8px;
+}
+.cartao-label svg{width:16px;height:16px;stroke:#667eea;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.cartao-desc{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:14px;flex:1}
+.btn-cartao{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:#fff;font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:11px 20px;border-radius:var(--radius);border:none;
+  cursor:pointer;transition:all 0.3s ease;
+  box-shadow:0 4px 14px rgba(102,126,234,0.3);
+}
+.btn-cartao:hover{box-shadow:0 6px 20px rgba(102,126,234,0.45);transform:translateY(-1px)}
+.btn-cartao:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-cartao svg{width:13px;height:13px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+@media(max-width:768px){
+  .checkout-fields{grid-template-columns:1fr}
+  .payment-options{grid-template-columns:1fr}
+  .checkout-header,.checkout-fields,.checkout-payment{padding-left:18px;padding-right:18px}
+}
 .footer{background:var(--navy-deep);text-align:center;padding:44px 24px;position:relative}
 .footer::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.25}
 .footer-brand{font-family:var(--serif);font-size:1.15rem;color:var(--gold);margin-bottom:8px;letter-spacing:1px}
@@ -471,86 +613,107 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 }
 .lanche-zoom-hint svg{width:15px;height:15px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-/* Corpo do card */
-.lanche-body{padding:18px 18px 0}
+/* Corpo do card — apenas nome visível sempre */
+.lanche-body{padding:16px 18px 0}
 .lanche-nome{
   font-family:var(--serif);font-size:1.35rem;font-weight:600;
-  color:var(--navy);margin-bottom:10px;line-height:1.2;
-}
-.lanche-ingredientes{
-  list-style:none;margin-bottom:0;
-}
-.lanche-ingredientes li{
-  font-size:12.5px;color:var(--text-muted);
-  padding:3px 0;
-  display:flex;align-items:center;gap:7px;
-  border-bottom:1px solid rgba(11,29,58,0.04);
-}
-.lanche-ingredientes li:last-child{border-bottom:none}
-.lanche-ingredientes li::before{
-  content:'';
-  width:4px;height:4px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;opacity:0.7;
+  color:var(--navy);line-height:1.2;
 }
 
-/* Acordeões */
-.lanche-acordeao{
-  border-top:1px solid var(--border);
-}
-.lanche-acordeao-btn{
+/* ── Painel retrátil único ── */
+.lanche-detalhes-btn{
   width:100%;background:none;border:none;cursor:pointer;
   display:flex;align-items:center;justify-content:space-between;
-  padding:12px 18px;
-  font-family:var(--sans);font-size:10px;font-weight:700;
-  letter-spacing:2px;text-transform:uppercase;
-  color:var(--navy);
-  transition:background 0.2s ease;
+  padding:12px 18px;margin-top:10px;
+  font-family:var(--sans);font-size:9px;font-weight:700;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--gold);
+  border-top:1px solid var(--border);
+  transition:background 0.2s ease, color 0.2s ease;
 }
-.lanche-acordeao-btn:hover{background:var(--off-white)}
-.lanche-acordeao-btn .ac-icon{
-  width:18px;height:18px;border-radius:50%;
+.lanche-detalhes-btn:hover{background:var(--off-white);color:var(--navy)}
+.lanche-detalhes-btn .det-icon{
+  width:20px;height:20px;border-radius:50%;
+  border:1px solid rgba(196,164,90,0.3);
   display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;transition:transform 0.3s ease;
+  flex-shrink:0;transition:transform 0.35s ease, background 0.2s ease;
 }
-.lanche-acordeao-btn.add .ac-icon{background:rgba(45,106,79,0.12)}
-.lanche-acordeao-btn.add .ac-icon svg{stroke:#2D6A4F}
-.lanche-acordeao-btn.rem .ac-icon{background:rgba(163,45,45,0.10)}
-.lanche-acordeao-btn.rem .ac-icon svg{stroke:#A32D2D}
-.lanche-acordeao-btn.open .ac-icon{transform:rotate(180deg)}
-.ac-icon svg{width:12px;height:12px;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.lanche-detalhes-btn .det-icon svg{width:11px;height:11px;stroke:var(--gold);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
+.lanche-detalhes-btn:hover .det-icon{background:var(--gold-faint)}
+.lanche-detalhes-btn.open .det-icon{transform:rotate(180deg)}
 
-.lanche-acordeao-body{
+.lanche-detalhes-body{
   max-height:0;overflow:hidden;
-  transition:max-height 0.4s cubic-bezier(0.22,1,0.36,1);
-  background:var(--off-white);
+  transition:max-height 0.45s cubic-bezier(0.22,1,0.36,1);
 }
-.lanche-acordeao-body.open{max-height:400px}
+.lanche-detalhes-body.open{max-height:800px}
 
-/* Itens com checkbox */
-.lanche-ac-lista{list-style:none;padding:8px 14px 12px;}
-.lanche-ac-item{
+/* Sub-seções dentro do painel */
+.det-section-label{
+  font-size:8px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--text-muted);padding:14px 18px 6px;display:block;
+  border-bottom:1px solid var(--border);
+}
+.det-section-label.add-label{color:#2D6A4F}
+
+/* Ingredientes com checkbox de retirar */
+.lanche-ingredientes{list-style:none;padding:4px 14px 8px;background:var(--off-white)}
+.ing-item{
   display:flex;align-items:center;justify-content:space-between;
-  padding:5px 4px;border-bottom:1px solid rgba(11,29,58,0.04);
-  gap:8px;
+  padding:5px 4px;border-bottom:1px solid rgba(11,29,58,0.04);gap:8px;
 }
-.lanche-ac-item:last-child{border-bottom:none}
-.lanche-ac-check{
-  display:flex;align-items:center;gap:8px;flex:1;cursor:pointer;
-}
-.lanche-ac-check input[type=checkbox]{
-  width:15px;height:15px;accent-color:var(--gold);
+.ing-item:last-child{border-bottom:none}
+.ing-check{display:flex;align-items:center;gap:8px;flex:1;cursor:pointer}
+.ing-check input[type=checkbox]{
+  width:14px;height:14px;accent-color:#A32D2D;
   cursor:pointer;flex-shrink:0;
 }
-.lanche-ac-check input[type=checkbox].rem-check{accent-color:#A32D2D}
-.lanche-ac-nome{font-size:12.5px;color:var(--text-body);line-height:1.3}
-.lanche-ac-preco{
-  font-size:11px;font-weight:700;color:#2D6A4F;
+.ing-nome{
+  font-size:12.5px;color:var(--text-body);line-height:1.3;
+  transition:color 0.2s ease, text-decoration 0.2s ease;
+}
+.ing-check input:checked ~ .ing-nome{
+  color:var(--text-muted);text-decoration:line-through;
+}
+.ing-retirar-hint{
+  font-size:9px;color:rgba(163,45,45,0.5);letter-spacing:0.5px;
   white-space:nowrap;flex-shrink:0;
 }
-.lanche-ac-item.rem-item .lanche-ac-preco{color:var(--text-muted);font-weight:400;font-style:italic;font-size:10px}
 
-/* Quantidade */
-.lanche-qty-wrap{
+/* Adicionais */
+.lanche-ac-lista{list-style:none;padding:4px 14px 10px;background:var(--off-white)}
+.lanche-ac-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:5px 4px;border-bottom:1px solid rgba(11,29,58,0.04);gap:8px;
+}
+.lanche-ac-item:last-child{border-bottom:none}
+.lanche-ac-check{display:flex;align-items:center;gap:8px;flex:1;cursor:pointer}
+.lanche-ac-check input[type=checkbox]{
+  width:14px;height:14px;accent-color:var(--gold);
+  cursor:pointer;flex-shrink:0;
+}
+.lanche-ac-nome{font-size:12.5px;color:var(--text-body);line-height:1.3}
+.lanche-ac-preco{font-size:11px;font-weight:700;color:#2D6A4F;white-space:nowrap;flex-shrink:0}
+
+/* Observações dentro do painel */
+.lanche-obs-wrap{padding:10px 18px 14px;background:var(--off-white)}
+.lanche-obs-label{
+  font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--warm-gray);margin-bottom:6px;display:block;
+}
+.lanche-obs{
+  width:100%;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--white);font-family:var(--sans);font-size:12.5px;
+  color:var(--text-body);padding:9px 12px;resize:none;outline:none;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height:48px;line-height:1.5;
+}
+.lanche-obs:focus{border-color:rgba(196,164,90,0.5);box-shadow:0 0 0 3px rgba(196,164,90,0.08)}
+.lanche-obs::placeholder{color:rgba(107,101,96,0.35);font-style:italic}
+
+/* Acordeões antigos — compatibilidade (não usados mas não quebram) */
+.lanche-acordeao{display:none}
+.lanche-acordeao-btn{display:none}
   display:flex;align-items:center;gap:0;
   border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;
   flex-shrink:0;
@@ -804,6 +967,157 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-deep);color:var(--white);padding:13px 28px;border-radius:var(--radius);font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:0.5px;opacity:0;pointer-events:none;transition:all 0.4s cubic-bezier(0.22,1,0.36,1);z-index:200;white-space:nowrap;box-shadow:var(--shadow-lg);border-left:2px solid var(--gold)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/* ═══ CHECKOUT — DADOS DO CLIENTE ═══ */
+.checkout-section{
+  grid-column:1/-1;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:var(--shadow-sm);
+  overflow:hidden;
+  position:relative;
+}
+.checkout-section::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.checkout-header{
+  padding:24px 28px 0;
+}
+.checkout-overline{
+  font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:8px;display:block;
+}
+.checkout-title{
+  font-family:var(--serif);font-size:1.6rem;font-weight:400;
+  color:var(--navy);margin-bottom:4px;
+}
+.checkout-subtitle{
+  font-size:12px;color:var(--text-muted);margin-bottom:24px;
+}
+
+.checkout-form{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;padding:0 28px 28px;
+}
+.form-field{display:flex;flex-direction:column;gap:6px}
+.form-field.full{grid-column:1/-1}
+.form-field.third{grid-column:span 1}
+
+.form-label{
+  font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--text-muted);
+}
+.form-input{
+  border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--cream);font-family:var(--sans);font-size:13.5px;
+  color:var(--text-body);padding:11px 14px;outline:none;
+  transition:border-color 0.3s ease, box-shadow 0.3s ease;
+  width:100%;
+}
+.form-input:focus{
+  border-color:rgba(196,164,90,0.5);
+  box-shadow:0 0 0 3px rgba(196,164,90,0.08);
+  background:var(--white);
+}
+.form-input::placeholder{color:rgba(107,101,96,0.35)}
+
+/* ═══ PAGAMENTO ═══ */
+.pagamento-wrap{
+  grid-column:1/-1;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:14px;margin-top:8px;
+}
+.pagamento-card{
+  border:1.5px solid var(--border);
+  border-radius:8px;padding:22px 22px;
+  background:var(--off-white);
+  transition:all 0.35s ease;
+  position:relative;overflow:hidden;
+}
+.pagamento-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  transform:scaleX(0);transition:transform 0.4s ease;
+}
+.pagamento-card:hover::before{transform:scaleX(1)}
+.pagamento-card:hover{border-color:var(--border-gold);background:var(--white);box-shadow:var(--shadow-md)}
+
+.pagamento-label{
+  font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;display:flex;align-items:center;gap:8px;
+}
+.pagamento-label svg{width:14px;height:14px;flex-shrink:0}
+.pagamento-title{
+  font-family:var(--serif);font-size:1.2rem;font-weight:500;
+  color:var(--navy);margin-bottom:6px;
+}
+.pagamento-desc{font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.5}
+
+/* Pix */
+.pix-chave-wrap{
+  display:flex;align-items:center;gap:0;
+  border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;background:var(--white);margin-bottom:12px;
+}
+.pix-chave-txt{
+  flex:1;padding:10px 12px;font-family:'Courier New',monospace;
+  font-size:12px;color:var(--navy);font-weight:600;
+  background:transparent;border:none;outline:none;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.btn-copiar-pix{
+  flex-shrink:0;padding:10px 16px;
+  background:var(--navy);color:var(--white);
+  border:none;cursor:pointer;font-family:var(--sans);
+  font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  transition:all 0.3s ease;display:flex;align-items:center;gap:6px;
+  white-space:nowrap;
+}
+.btn-copiar-pix svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-copiar-pix:hover{background:var(--navy-light)}
+.btn-copiar-pix.copiado{background:#2D6A4F}
+
+/* Cartão */
+.btn-cartao{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:13px 20px;
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  color:var(--white);border:none;border-radius:var(--radius);
+  font-family:var(--sans);font-size:10px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  text-decoration:none;
+  transition:all 0.35s ease;position:relative;overflow:hidden;
+}
+.btn-cartao::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.07),transparent);
+  transform:translateX(-100%);
+}
+.btn-cartao:hover{box-shadow:0 6px 24px rgba(0,0,0,0.3);transform:translateY(-1px)}
+.btn-cartao:hover::after{transform:translateX(100%);transition:transform 0.5s ease}
+.btn-cartao svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* Bandeiras cartão */
+.card-bandeiras{
+  display:flex;gap:6px;margin-bottom:16px;
+}
+.bandeira{
+  width:36px;height:22px;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:7px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;
+}
+.bandeira-visa{background:#1a1f71;color:#fff}
+.bandeira-master{background:linear-gradient(90deg,#eb001b,#f79e1b);color:#fff}
+.bandeira-elo{background:#00A4E0;color:#fff}
+.bandeira-amex{background:#007BC1;color:#fff}
+
+@media(max-width:768px){
+  .checkout-form{grid-template-columns:1fr}
+  .form-field.full,.form-field.third{grid-column:1/-1}
+  .pagamento-wrap{grid-template-columns:1fr}
+}
+
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:768px){
   .dashboard{grid-template-columns:1fr;padding:20px 18px 48px;gap:10px}
@@ -875,93 +1189,40 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
 
       <div class="lanche-body">
         <h3 class="lanche-nome">X-Salada</h3>
+      </div>
+
+      <!-- Painel retrátil único -->
+      <button class="lanche-detalhes-btn" onclick="toggleDetalhes(this)">
+        Ver detalhes &amp; personalizar
+        <span class="det-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="lanche-detalhes-body">
+        <span class="det-section-label">Ingredientes — clique para retirar</span>
         <ul class="lanche-ingredientes">
-          <li>Pão brioche artesanal</li>
-          <li>Hambúrguer bovino artesanal</li>
-          <li>Queijo cheddar derretido</li>
-          <li>Alface americana crocante</li>
-          <li>Tomate fresco em fatias</li>
-          <li>Cebola branca</li>
-          <li>Picles artesanais</li>
-          <li>Maionese especial da casa</li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Pão brioche artesanal"><span class="ing-nome">Pão brioche artesanal</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Hambúrguer bovino artesanal"><span class="ing-nome">Hambúrguer bovino artesanal</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Queijo cheddar derretido"><span class="ing-nome">Queijo cheddar derretido</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Alface americana crocante"><span class="ing-nome">Alface americana crocante</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Tomate fresco em fatias"><span class="ing-nome">Tomate fresco em fatias</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Cebola branca"><span class="ing-nome">Cebola branca</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Picles artesanais"><span class="ing-nome">Picles artesanais</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Maionese especial da casa"><span class="ing-nome">Maionese especial da casa</span></label><span class="ing-retirar-hint">retirar</span></li>
         </ul>
-      </div>
-
-      <!-- Adicionar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
-          Adicionar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
-              <span class="lanche-ac-preco">+ R$ 4,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cebola caramelizada" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cebola caramelizada</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
-              <span class="lanche-ac-preco">+ R$ 2,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
-              <span class="lanche-ac-preco">+ R$ 5,00</span>
-            </li>
-          </ul>
+        <span class="det-section-label add-label">Adicionar ingredientes</span>
+        <ul class="lanche-ac-lista">
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label><span class="lanche-ac-preco">+ R$ 4,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label><span class="lanche-ac-preco">+ R$ 3,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label><span class="lanche-ac-preco">+ R$ 3,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cebola caramelizada" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cebola caramelizada</span></label><span class="lanche-ac-preco">+ R$ 3,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label><span class="lanche-ac-preco">+ R$ 2,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label><span class="lanche-ac-preco">+ R$ 5,00</span></li>
+        </ul>
+        <div class="lanche-obs-wrap">
+          <label class="lanche-obs-label">Observações</label>
+          <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
         </div>
       </div>
 
-      <!-- Retirar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
-          Retirar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Alface"><span class="lanche-ac-nome">Alface</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Tomate"><span class="lanche-ac-nome">Tomate</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola"><span class="lanche-ac-nome">Cebola</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Picles"><span class="lanche-ac-nome">Picles</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Maionese"><span class="lanche-ac-nome">Maionese</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Observações -->
-      <div class="lanche-obs-wrap">
-        <label class="lanche-obs-label">Observações</label>
-        <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
-      </div>
-
-      <!-- Preço + Quantidade + Adicionar -->
       <div class="lanche-add-pedido-wrap">
         <div class="lanche-preco-base">
           <span class="lanche-preco-label">Total</span>
@@ -982,96 +1243,44 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     <!-- ── Smash Burger ── -->
     <div class="lanche-card" data-id="smash" data-nome="Smash Burger" data-preco="38.90">
       <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1aj2mSbhA6BBZNBEAdsK0jPcC28BcTGFd=s1600','Smash Burger')">
-        <img class="lanche-foto"
-          src="https://lh3.googleusercontent.com/d/1aj2mSbhA6BBZNBEAdsK0jPcC28BcTGFd=s600"
-          alt="Smash Burger" loading="lazy">
-        <div class="lanche-foto-overlay">
-          <div class="lanche-zoom-hint">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-          </div>
-        </div>
+        <img class="lanche-foto" src="https://lh3.googleusercontent.com/d/1aj2mSbhA6BBZNBEAdsK0jPcC28BcTGFd=s600" alt="Smash Burger" loading="lazy">
+        <div class="lanche-foto-overlay"><div class="lanche-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div></div>
       </div>
 
       <div class="lanche-body">
         <h3 class="lanche-nome">Smash Burger</h3>
+      </div>
+
+      <button class="lanche-detalhes-btn" onclick="toggleDetalhes(this)">
+        Ver detalhes &amp; personalizar
+        <span class="det-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="lanche-detalhes-body">
+        <span class="det-section-label">Ingredientes — clique para retirar</span>
         <ul class="lanche-ingredientes">
-          <li>Pão brioche selado na manteiga</li>
-          <li>Dois smash burgers ultra prensados</li>
-          <li>Queijo americano derretido</li>
-          <li>Cebola picada</li>
-          <li>Picles crocantes</li>
-          <li>Molho smash especial</li>
-          <li>Crosta caramelizada na carne</li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Pão brioche selado na manteiga"><span class="ing-nome">Pão brioche selado na manteiga</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Dois smash burgers ultra prensados"><span class="ing-nome">Dois smash burgers ultra prensados</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Queijo americano derretido"><span class="ing-nome">Queijo americano derretido</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Cebola picada"><span class="ing-nome">Cebola picada</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Picles crocantes"><span class="ing-nome">Picles crocantes</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Molho smash especial"><span class="ing-nome">Molho smash especial</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Crosta caramelizada na carne"><span class="ing-nome">Crosta caramelizada na carne</span></label><span class="ing-retirar-hint">retirar</span></li>
         </ul>
-      </div>
-
-      <!-- Adicionar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
-          Adicionar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
-              <span class="lanche-ac-preco">+ R$ 4,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
-              <span class="lanche-ac-preco">+ R$ 2,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Terceiro smash" data-preco="9.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Terceiro smash</span></label>
-              <span class="lanche-ac-preco">+ R$ 9,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
-              <span class="lanche-ac-preco">+ R$ 5,00</span>
-            </li>
-          </ul>
+        <span class="det-section-label add-label">Adicionar ingredientes</span>
+        <ul class="lanche-ac-lista">
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label><span class="lanche-ac-preco">+ R$ 4,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label><span class="lanche-ac-preco">+ R$ 3,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label><span class="lanche-ac-preco">+ R$ 3,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label><span class="lanche-ac-preco">+ R$ 2,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Terceiro smash" data-preco="9.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Terceiro smash</span></label><span class="lanche-ac-preco">+ R$ 9,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label><span class="lanche-ac-preco">+ R$ 5,00</span></li>
+        </ul>
+        <div class="lanche-obs-wrap">
+          <label class="lanche-obs-label">Observações</label>
+          <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
         </div>
       </div>
 
-      <!-- Retirar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
-          Retirar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola picada"><span class="lanche-ac-nome">Cebola picada</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Picles"><span class="lanche-ac-nome">Picles</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Molho smash"><span class="lanche-ac-nome">Molho smash</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Observações -->
-      <div class="lanche-obs-wrap">
-        <label class="lanche-obs-label">Observações</label>
-        <textarea class="lanche-obs" placeholder="Ex: ponto da carne, molho à parte..."></textarea>
-      </div>
-
-      <!-- Preço + Quantidade + Adicionar -->
       <div class="lanche-add-pedido-wrap">
         <div class="lanche-preco-base">
           <span class="lanche-preco-label">Total</span>
@@ -1092,105 +1301,45 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     <!-- ── Frango Empanado Crocante ── -->
     <div class="lanche-card" data-id="frango" data-nome="Frango Empanado Crocante" data-preco="35.90">
       <div class="lanche-foto-wrap" onclick="abrirFoto('https://lh3.googleusercontent.com/d/1oeAGO-nVqzzi5tPWiLLHHk5lQvsivvLf=s1600','Frango Empanado Crocante')">
-        <img class="lanche-foto"
-          src="https://lh3.googleusercontent.com/d/1oeAGO-nVqzzi5tPWiLLHHk5lQvsivvLf=s600"
-          alt="Frango Empanado Crocante" loading="lazy">
-        <div class="lanche-foto-overlay">
-          <div class="lanche-zoom-hint">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-          </div>
-        </div>
+        <img class="lanche-foto" src="https://lh3.googleusercontent.com/d/1oeAGO-nVqzzi5tPWiLLHHk5lQvsivvLf=s600" alt="Frango Empanado Crocante" loading="lazy">
+        <div class="lanche-foto-overlay"><div class="lanche-zoom-hint"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div></div>
       </div>
 
       <div class="lanche-body">
         <h3 class="lanche-nome">Frango Empanado Crocante</h3>
+      </div>
+
+      <button class="lanche-detalhes-btn" onclick="toggleDetalhes(this)">
+        Ver detalhes &amp; personalizar
+        <span class="det-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+      </button>
+      <div class="lanche-detalhes-body">
+        <span class="det-section-label">Ingredientes — clique para retirar</span>
         <ul class="lanche-ingredientes">
-          <li>Pão brioche amanteigado</li>
-          <li>Filé de frango empanado extra crocante</li>
-          <li>Alface americana fresca</li>
-          <li>Tomate italiano</li>
-          <li>Cebola branca</li>
-          <li>Molho cremoso levemente picante</li>
-          <li>Temperos especiais crocantes</li>
-          <li>Maionese artesanal da casa</li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Pão brioche amanteigado"><span class="ing-nome">Pão brioche amanteigado</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Filé de frango empanado extra crocante"><span class="ing-nome">Filé de frango empanado extra crocante</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Alface americana fresca"><span class="ing-nome">Alface americana fresca</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Tomate italiano"><span class="ing-nome">Tomate italiano</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Cebola branca"><span class="ing-nome">Cebola branca</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Molho cremoso levemente picante"><span class="ing-nome">Molho cremoso levemente picante</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Temperos especiais crocantes"><span class="ing-nome">Temperos especiais crocantes</span></label><span class="ing-retirar-hint">retirar</span></li>
+          <li class="ing-item"><label class="ing-check"><input type="checkbox" class="rem-check" data-nome="Maionese artesanal da casa"><span class="ing-nome">Maionese artesanal da casa</span></label><span class="ing-retirar-hint">retirar</span></li>
         </ul>
-      </div>
-
-      <!-- Adicionar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn add" onclick="toggleAc(this)">
-          Adicionar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label>
-              <span class="lanche-ac-preco">+ R$ 4,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label>
-              <span class="lanche-ac-preco">+ R$ 3,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label>
-              <span class="lanche-ac-preco">+ R$ 2,50</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Molho extra picante" data-preco="2.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Molho extra picante</span></label>
-              <span class="lanche-ac-preco">+ R$ 2,00</span>
-            </li>
-            <li class="lanche-ac-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label>
-              <span class="lanche-ac-preco">+ R$ 5,00</span>
-            </li>
-          </ul>
+        <span class="det-section-label add-label">Adicionar ingredientes</span>
+        <ul class="lanche-ac-lista">
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Bacon crocante" data-preco="4.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Bacon crocante</span></label><span class="lanche-ac-preco">+ R$ 4,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cheddar extra" data-preco="3.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cheddar extra</span></label><span class="lanche-ac-preco">+ R$ 3,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Ovo frito" data-preco="3.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Ovo frito</span></label><span class="lanche-ac-preco">+ R$ 3,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Jalapeño" data-preco="2.50" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Jalapeño</span></label><span class="lanche-ac-preco">+ R$ 2,50</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Molho extra picante" data-preco="2.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Molho extra picante</span></label><span class="lanche-ac-preco">+ R$ 2,00</span></li>
+          <li class="lanche-ac-item"><label class="lanche-ac-check"><input type="checkbox" class="add-check" data-nome="Cogumelos salteados" data-preco="5.00" onchange="atualizarPreco(this)"><span class="lanche-ac-nome">Cogumelos salteados</span></label><span class="lanche-ac-preco">+ R$ 5,00</span></li>
+        </ul>
+        <div class="lanche-obs-wrap">
+          <label class="lanche-obs-label">Observações</label>
+          <textarea class="lanche-obs" placeholder="Ex: molho à parte, sem tempero..."></textarea>
         </div>
       </div>
 
-      <!-- Retirar ingredientes -->
-      <div class="lanche-acordeao">
-        <button class="lanche-acordeao-btn rem" onclick="toggleAc(this)">
-          Retirar ingredientes
-          <span class="ac-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
-        </button>
-        <div class="lanche-acordeao-body">
-          <ul class="lanche-ac-lista">
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Alface"><span class="lanche-ac-nome">Alface</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Tomate"><span class="lanche-ac-nome">Tomate</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Cebola"><span class="lanche-ac-nome">Cebola</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Molho cremoso picante"><span class="lanche-ac-nome">Molho cremoso picante</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-            <li class="lanche-ac-item rem-item">
-              <label class="lanche-ac-check"><input type="checkbox" class="rem-check" data-nome="Maionese"><span class="lanche-ac-nome">Maionese</span></label>
-              <span class="lanche-ac-preco" style="color:var(--text-muted);font-weight:400;font-size:10px">sem custo</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Observações -->
-      <div class="lanche-obs-wrap">
-        <label class="lanche-obs-label">Observações</label>
-        <textarea class="lanche-obs" placeholder="Ex: molho à parte, sem tempero..."></textarea>
-      </div>
-
-      <!-- Preço + Quantidade + Adicionar -->
       <div class="lanche-add-pedido-wrap">
         <div class="lanche-preco-base">
           <span class="lanche-preco-label">Total</span>
@@ -1209,6 +1358,9 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
 
   </div>
+
+  <!-- ══ PORÇÕES ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1">
     <div><p class="section-title">Porções</p></div>
     <div class="section-header-line"></div>
   </div>
@@ -1264,6 +1416,71 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
     </div>
   </div>
 
+  <!-- ══ FINALIZAR PEDIDO ══ -->
+  <div class="checkout-section reveal">
+    <div class="checkout-header">
+      <span class="checkout-overline">Finalizar Pedido</span>
+      <h2 class="checkout-title">Seus dados de entrega</h2>
+    </div>
+
+    <div class="checkout-fields">
+      <div class="field-wrap full">
+        <label class="field-lbl">Nome completo</label>
+        <input class="field-inp" id="cli-nome" type="text" placeholder="Seu nome">
+      </div>
+      <div class="field-wrap">
+        <label class="field-lbl">Número para contato</label>
+        <input class="field-inp" id="cli-tel" type="tel" placeholder="(00) 00000-0000">
+      </div>
+      <div class="field-wrap">
+        <label class="field-lbl">Bairro</label>
+        <input class="field-inp" id="cli-bairro" type="text" placeholder="Seu bairro">
+      </div>
+      <div class="field-wrap">
+        <label class="field-lbl">Endereço</label>
+        <input class="field-inp" id="cli-endereco" type="text" placeholder="Rua, Avenida...">
+      </div>
+      <div class="field-wrap">
+        <label class="field-lbl">Número</label>
+        <input class="field-inp" id="cli-numero" type="text" placeholder="Nº">
+      </div>
+    </div>
+
+    <div class="checkout-payment">
+      <span class="checkout-payment-title">Forma de pagamento</span>
+      <div class="payment-options">
+
+        <!-- PIX -->
+        <div class="pix-card">
+          <div class="pix-label">
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M242.4 292.5C247.8 287.1 257.1 287.1 262.5 292.5L339.7 369.7C350.3 380.3 364.6 386.2 379.6 386.2H394.2L313.3 467.1C288.6 491.8 248.5 491.8 223.8 467.1L142.5 385.8H157.4C172.4 385.8 186.7 379.9 197.3 369.3L242.4 292.5zM313.3 44.97L394.2 125.8H379.6C364.6 125.8 350.3 131.7 339.7 142.3L262.5 219.5C257.1 224.9 247.8 224.9 242.4 219.5L197.3 142.7C186.7 132.1 172.4 126.2 157.4 126.2H142.5L223.8 44.97C248.5 20.27 288.6 20.27 313.3 44.97zM112.4 143.4H157.4C163.6 143.4 169.5 146.1 173.7 150.3L230.5 207.1C242.4 218.1 261.6 218.1 273.5 207.1L330.3 150.3C334.5 146.1 340.4 143.4 346.6 143.4H391.6L441 192.8C465.7 217.5 465.7 257.6 441 282.3L391.6 331.7H346.6C340.4 331.7 334.5 329 330.3 324.8L273.5 268C261.6 257 242.4 257 230.5 268L173.7 324.8C169.5 329 163.6 331.7 157.4 331.7H112.4L63.07 282.3C38.37 257.6 38.37 217.5 63.07 192.8L112.4 143.4z"/></svg>
+            Pagar com Pix
+          </div>
+          <p class="pix-chave-label">Chave CPF:</p>
+          <div class="pix-chave">
+            <span id="pix-key-txt">152.345.568-89</span>
+            <button class="btn-copiar-pix" id="btn-pix-copy" onclick="copiarPix()">Copiar</button>
+          </div>
+          <p style="font-size:11px;color:var(--text-muted);line-height:1.5">Após o pagamento, envie o comprovante pelo WhatsApp junto com seu pedido.</p>
+        </div>
+
+        <!-- CARTÃO -->
+        <div class="cartao-card">
+          <div class="cartao-label">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Cartão de crédito
+          </div>
+          <p class="cartao-desc">Pague com cartão de crédito de forma rápida e segura. Você será redirecionado para o ambiente de pagamento.</p>
+          <button class="btn-cartao" id="btn-cartao" onclick="acessarCartao()" disabled>
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Em breve
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="ornament reveal">
     <div class="ornament-line"></div>
     <div class="ornament-diamond"></div>
@@ -1284,6 +1501,94 @@ body{font-family:var(--sans);background:var(--off-white);color:var(--text-body);
       <div class="contact-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
       <div><p class="contact-item-label">WhatsApp</p><p class="contact-item-value">Fazer pedido</p></div>
     </a>
+  </div>
+
+  <!-- ══ DADOS DO CLIENTE + PAGAMENTO ══ -->
+  <div class="section-header reveal" style="grid-column:1/-1;margin-top:40px">
+    <div><p class="section-title">Finalizar Pedido</p></div>
+    <div class="section-header-line"></div>
+  </div>
+
+  <div class="checkout-section reveal">
+    <div class="checkout-header">
+      <span class="checkout-overline">Entrega</span>
+      <h2 class="checkout-title">Seus dados</h2>
+      <p class="checkout-subtitle">Preencha as informações abaixo para finalizarmos seu pedido.</p>
+    </div>
+
+    <div class="checkout-form">
+      <!-- Nome -->
+      <div class="form-field full">
+        <label class="form-label" for="cliente-nome">Nome</label>
+        <input class="form-input" id="cliente-nome" type="text" placeholder="Seu nome completo" autocomplete="name">
+      </div>
+
+      <!-- Telefone -->
+      <div class="form-field full">
+        <label class="form-label" for="cliente-tel">Número para contato</label>
+        <input class="form-input" id="cliente-tel" type="tel" placeholder="(00) 00000-0000" autocomplete="tel">
+      </div>
+
+      <!-- Endereço -->
+      <div class="form-field" style="grid-column:1 / span 1">
+        <label class="form-label" for="cliente-end">Endereço</label>
+        <input class="form-input" id="cliente-end" type="text" placeholder="Rua, Avenida..." autocomplete="street-address">
+      </div>
+
+      <!-- Número -->
+      <div class="form-field" style="grid-column:2 / span 1">
+        <label class="form-label" for="cliente-num">Número</label>
+        <input class="form-input" id="cliente-num" type="text" placeholder="Ex: 142" autocomplete="off">
+      </div>
+
+      <!-- Bairro -->
+      <div class="form-field full">
+        <label class="form-label" for="cliente-bairro">Bairro</label>
+        <input class="form-input" id="cliente-bairro" type="text" placeholder="Seu bairro" autocomplete="off">
+      </div>
+
+      <!-- Pagamento -->
+      <div class="pagamento-wrap">
+
+        <!-- PIX -->
+        <div class="pagamento-card">
+          <p class="pagamento-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            Pagamento instantâneo
+          </p>
+          <h3 class="pagamento-title">Pagar com Pix</h3>
+          <p class="pagamento-desc">Copie a chave abaixo e realize o pagamento pelo app do seu banco.</p>
+          <div class="pix-chave-wrap">
+            <span class="pix-chave-txt" id="pix-chave-txt">152.345.568-89</span>
+            <button class="btn-copiar-pix" id="btn-copiar-pix" onclick="copiarPix()">
+              <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Copiar chave
+            </button>
+          </div>
+        </div>
+
+        <!-- CARTÃO -->
+        <div class="pagamento-card">
+          <p class="pagamento-label">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Parcelamento disponível
+          </p>
+          <h3 class="pagamento-title">Cartão de Crédito</h3>
+          <p class="pagamento-desc">Pague com segurança pelo link de pagamento.</p>
+          <div class="card-bandeiras">
+            <span class="bandeira bandeira-visa">VISA</span>
+            <span class="bandeira bandeira-master">MC</span>
+            <span class="bandeira bandeira-elo">ELO</span>
+            <span class="bandeira bandeira-amex">AMEX</span>
+          </div>
+          <a href="#" id="btn-cartao-link" class="btn-cartao">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            Pagar com cartão
+          </a>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 </main>
@@ -1406,9 +1711,19 @@ function adicionarAoPedido(btn) {
 
   // Reset card
   card.querySelectorAll('input[type=checkbox]').forEach(function(c){ c.checked = false; });
+  // Reset ingredient strikethrough visually
+  card.querySelectorAll('.ing-nome').forEach(function(n){ n.style.textDecoration=''; n.style.color=''; });
   if (card.querySelector('.lanche-obs')) card.querySelector('.lanche-obs').value = '';
   var qtyD = card.querySelector('.qty-display');
   if (qtyD) qtyD.textContent = '1';
+  // Close detalhes panel
+  var detBtn = card.querySelector('.lanche-detalhes-btn');
+  var detBody = card.querySelector('.lanche-detalhes-body');
+  if (detBtn && detBody && detBody.classList.contains('open')) {
+    detBody.classList.remove('open');
+    detBtn.classList.remove('open');
+    detBody.style.maxHeight = '0';
+  }
   atualizarPreco(card);
 
   renderCarrinho();
@@ -1487,7 +1802,22 @@ function limparCarrinho() {
 function enviarWhatsApp() {
   if (!_carrinho.length) return;
   var soma = _carrinho.reduce(function(acc,i){ return acc + i.preco; }, 0);
+
+  // Dados do cliente
+  var nome   = (document.getElementById('cliente-nome')   ? document.getElementById('cliente-nome').value.trim()   : '') || '—';
+  var tel    = (document.getElementById('cliente-tel')    ? document.getElementById('cliente-tel').value.trim()    : '') || '—';
+  var end    = (document.getElementById('cliente-end')    ? document.getElementById('cliente-end').value.trim()    : '') || '—';
+  var num    = (document.getElementById('cliente-num')    ? document.getElementById('cliente-num').value.trim()    : '') || '—';
+  var bairro = (document.getElementById('cliente-bairro') ? document.getElementById('cliente-bairro').value.trim() : '') || '—';
+
   var linhas = ['🍔 *PEDIDO — OZZY BURGER*', ''];
+  linhas.push('👤 *Cliente:* ' + nome);
+  linhas.push('📞 *Contato:* ' + tel);
+  linhas.push('📍 *Endereço:* ' + end + ', ' + num + ' — ' + bairro);
+  linhas.push('');
+  linhas.push('━━━━━━━━━━━━━━━━━━');
+  linhas.push('🧾 *ITENS DO PEDIDO*');
+  linhas.push('');
   _carrinho.forEach(function(item, idx){
     linhas.push('*' + (idx+1) + '. ' + (item.qty > 1 ? item.qty + 'x ' : '') + item.nome + '* — ' + fmt(item.preco));
     if (item.adicionados.length) linhas.push('  ✅ Adicionar: ' + item.adicionados.map(function(a){return a.nome+' (+R$'+a.preco.toFixed(2).replace('.',',')+')';}).join(', '));
@@ -1498,22 +1828,49 @@ function enviarWhatsApp() {
   linhas.push('━━━━━━━━━━━━━━━━━━');
   linhas.push('💰 *TOTAL: ' + fmt(soma) + '*');
   var msg = linhas.join('\n');
-  // Substitua pelo número real do WhatsApp da empresa
   var numero = '5514997758941';
   window.open('https://wa.me/' + numero + '?text=' + encodeURIComponent(msg), '_blank');
 }
 
 // ══════════════════════════════════════════
-// ACORDEÃO
+// PIX — COPIAR CHAVE
 // ══════════════════════════════════════════
-function toggleAc(btn) {
+function copiarPix() {
+  var chave = document.getElementById('pix-chave-txt').textContent.trim();
+  var btn   = document.getElementById('btn-copiar-pix');
+  navigator.clipboard.writeText(chave).then(function(){
+    btn.classList.add('copiado');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
+    setTimeout(function(){
+      btn.classList.remove('copiado');
+      btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar chave';
+    }, 2500);
+  }).catch(function(){
+    // Fallback para navegadores sem clipboard API
+    var el = document.getElementById('pix-chave-txt');
+    var range = document.createRange();
+    range.selectNode(el);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    btn.classList.add('copiado');
+    btn.textContent = 'Copiado!';
+    setTimeout(function(){ btn.classList.remove('copiado'); btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copiar chave'; }, 2500);
+  });
+}
+function toggleDetalhes(btn) {
   var body = btn.nextElementSibling;
   var open = body.classList.contains('open');
-  var card = btn.closest('.lanche-card');
-  card.querySelectorAll('.lanche-acordeao-body').forEach(function(b){ b.classList.remove('open'); });
-  card.querySelectorAll('.lanche-acordeao-btn').forEach(function(b){ b.classList.remove('open'); });
-  if (!open) { body.classList.add('open'); btn.classList.add('open'); }
+  body.classList.toggle('open', !open);
+  btn.classList.toggle('open', !open);
+  if (!open) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+  } else {
+    body.style.maxHeight = '0';
+  }
 }
+function toggleAc(btn){ toggleDetalhes(btn); }
 
 // ══════════════════════════════════════════
 // FOTO LIGHTBOX
